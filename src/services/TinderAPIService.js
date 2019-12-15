@@ -6,3 +6,9 @@ export const fetchRecommendations = () =>
     var recommendationsUrl = TinderConstants.BASE_URL + TinderConstants.RECOMMENDATIONS;
     return axios.get(recommendationsUrl);
 }
+
+export const fetchTeaser = () =>
+{
+    var teaserURL = TinderConstants.BASE_URL + TinderConstants.TEASER;
+    return axios.get(teaserURL);
+}

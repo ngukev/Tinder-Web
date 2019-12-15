@@ -1,5 +1,5 @@
 import React from 'react';
-import { CardDeck } from 'react-bootstrap';
+import { CardDeck, CardColumns } from 'react-bootstrap';
 import '../css/app.css';
 import { fetchRecommendations } from '../services/TinderAPIService';
 import TinderCard from './TinderCard';
@@ -7,25 +7,16 @@ import TinderCard from './TinderCard';
 class Gallery extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {
-      userDataList: []
-    };
+    this.state = {};
     this.renderGallery = this.renderGallery.bind(this);
   }
 
-  componentDidMount() {
-    fetchRecommendations().then(response => {
-      if (response != null && response.data.meta.status === 200) {
-        this.setState({ userDataList: response.data.data.results })
-      }
-    })
-  }
 
   renderGallery() {
 
-    var LIMIT = 8;
+    var LIMIT = 10;
     var myCardList = [];
-    this.state.userDataList.forEach((user, i) => {
+    this.props.userDataList.forEach((user, i) => {
       myCardList.push(<TinderCard user={user} />);
     });
     var myCardDeck = [];
