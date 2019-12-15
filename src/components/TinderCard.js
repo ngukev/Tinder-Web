@@ -13,7 +13,6 @@ class TinderCard extends React.Component {
 
     changePhotos()
     {
-        console.log(this.state.counter,this.props.user.user.photos.length);
         if(this.state.counter === this.props.user.user.photos.length-1)
         {
             this.setState({counter: 0})
