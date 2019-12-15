@@ -29,12 +29,13 @@ class Gallery extends React.Component {
       myCardList.push(<TinderCard user={user} />);
     });
     var myCardDeck = [];
-    for (var i = 0; i < LIMIT; i += 4) {
+    for (var i = 0; i < LIMIT; i += 5) {
       myCardDeck.push(<CardDeck key={i}>
         {myCardList[i]}
         {myCardList[i + 1]}
         {myCardList[i + 2]}
         {myCardList[i + 3]}
+        {myCardList[i + 4]}
       </CardDeck>)
     }
 

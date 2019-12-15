@@ -33,8 +33,8 @@ class App extends React.Component {
       <div className="Main App">
         {this.renderNavBar()}
         <br></br>
-          <div className="Side Panel" style={{width: "15%", height: "50%", float:"left"}}><SidePanel/></div>
-          <div className="Gallery" style={{width: "85%", height: "50%", float:"right", paddingLeft:"350px"}}><Gallery/></div>
+          <div className="Side Panel" style={{width: "17%", float:"left"}}><SidePanel/></div>
+          <div className="Gallery" style={{width: "83%", float:"right"}}><Gallery/></div>
       </div>
     );
   }
