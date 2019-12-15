@@ -3,6 +3,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import React from 'react';
 import { Button, Card, Form } from 'react-bootstrap';
 import '../css/app.css';
+import moment from 'moment';
 
 class TinderCard extends React.Component {
     constructor(props) {
@@ -13,6 +14,7 @@ class TinderCard extends React.Component {
         };
         this.changePhotos = this.changePhotos.bind(this);
         this.showBio = this.showBio.bind(this);
+        // this.renderBio
     }
 
     changePhotos()
@@ -30,6 +32,7 @@ class TinderCard extends React.Component {
     {
         this.setState({showBio : !this.state.showBio})
     }
+
     render() {
 
         var cardImageStyles = {
@@ -44,15 +47,15 @@ class TinderCard extends React.Component {
                 <Card style={{ width: '17rem' }} key={user.user._id}>
                     <Card.Img variant="top" src={user.user.photos[currentCounter].url} style={cardImageStyles} onClick={e => this.changePhotos()} />
                     <Card.Body>
-                        <Card.Title><Button block onClick={e => {this.showBio()}}>{user.user.name}</Button></Card.Title>
+                        <Card.Title><Button block onClick={e => {this.showBio()}}>{user.user.name + ", " + calculateAge(user.user.birth_date)}</Button></Card.Title>
                         <Card.Text>
                             {this.state.showBio === true ? user.user.bio : null}
                         </Card.Text>
                         <FontAwesomeIcon icon={faStar}  style={{float:"left",width: "20px"}} onClick= {e => {console.log("clicked btich")}} />
                         <Form>
-                        <Form.Group controlId="formBasicCheckbox">
-                            <Form.Check style={{float:"right"}} type="checkbox" label="Like" />
-                        </Form.Group>
+                            <Form.Group controlId="formBasicCheckbox">
+                                <Form.Check style={{float:"right"}} type="checkbox" label="Like" />
+                            </Form.Group>
                         </Form>
 
                     </Card.Body>
@@ -60,6 +63,11 @@ class TinderCard extends React.Component {
             </div>
         );
     }
+}
+
+function calculateAge(birthdayString) {
+    var formattedBirthdayString = birthdayString.split("T")[0];
+    return moment(formattedBirthdayString, "YYYY-MM-DD").fromNow().split(" ")[0];
 }
 
 export default TinderCard;
