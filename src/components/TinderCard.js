@@ -35,13 +35,13 @@ class TinderCard extends React.Component {
         var cardImageStyles = {
             width: "100%",
             height: "17vw",
-            "object-fit": "cover"
+            objectFit: "cover"
         };
         var user = this.props.user;
         var currentCounter = this.state.counter;
         return (
             <div className="TinderCard">
-                <Card style={{ width: '15rem' }} key={user.user._id}>
+                <Card style={{ width: '17rem' }} key={user.user._id}>
                     <Card.Img variant="top" src={user.user.photos[currentCounter].url} style={cardImageStyles} onClick={e => this.changePhotos()} />
                     <Card.Body>
                         <Card.Title><Button block onClick={e => {this.showBio()}}>{user.user.name}</Button></Card.Title>
