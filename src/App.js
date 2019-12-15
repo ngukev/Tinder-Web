@@ -1,8 +1,9 @@
+import 'bootstrap/dist/css/bootstrap.min.css';
 import React from 'react';
 import { Navbar } from 'react-bootstrap';
-import 'bootstrap/dist/css/bootstrap.min.css';
 import Gallery from './components/Gallery';
-
+import SidePanel from './components/SidePanel';
+import './css/app.css';
 class App extends React.Component {
 
   constructor(props) {
@@ -31,7 +32,8 @@ class App extends React.Component {
     return (
       <div className="Main App">
         {this.renderNavBar()}
-        <Gallery></Gallery>
+          <div className="Side Panel" style={{width: "15%", height: "50%", float:"left"}}><SidePanel/></div>
+          <div className="Gallery" style={{width: "85%", height: "50%", float:"right", paddingLeft:"350px"}}><Gallery/></div>
       </div>
     );
   }

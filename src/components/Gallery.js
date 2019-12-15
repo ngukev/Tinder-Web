@@ -14,10 +14,9 @@ class Gallery extends React.Component {
   }
 
   componentDidMount() {
-    fetchRecommendations().then(response =>{
-      if(response != null && response.data.meta.status === 200)
-      {
-        this.setState({userDataList : response.data.data.results})
+    fetchRecommendations().then(response => {
+      if (response != null && response.data.meta.status === 200) {
+        this.setState({ userDataList: response.data.data.results })
       }
     })
   }
@@ -27,20 +26,19 @@ class Gallery extends React.Component {
     var LIMIT = 8;
     var myCardList = [];
     this.state.userDataList.forEach((user, i) => {
-      myCardList.push(<TinderCard user={user}/>);
+      myCardList.push(<TinderCard user={user} />);
     });
     var myCardDeck = [];
-    for(var i = 0; i < LIMIT; i+=4)
-    {
-      myCardDeck.push(<CardDeck key = {i}>
+    for (var i = 0; i < LIMIT; i += 4) {
+      myCardDeck.push(<CardDeck key={i}>
         {myCardList[i]}
-        {myCardList[i+1]}
-        {myCardList[i+2]}
-        {myCardList[i+3]}
+        {myCardList[i + 1]}
+        {myCardList[i + 2]}
+        {myCardList[i + 3]}
       </CardDeck>)
     }
 
-  return(myCardDeck);
+    return (myCardDeck);
   }
   render() {
     return (
