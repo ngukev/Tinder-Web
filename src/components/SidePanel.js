@@ -9,7 +9,7 @@ class SidePanel extends React.Component {
         super(props);
         this.state = {
             counter: 0,
-            showBio : false
+            showBio: false
         };
         this.changePhoto = this.changePhoto.bind(this);
         this.renderTeaserCard = this.renderTeaserCard.bind(this);
@@ -21,9 +21,8 @@ class SidePanel extends React.Component {
     showBio() {
         this.setState({ showBio: !this.state.showBio })
     }
-    expandAllBio()
-    {
-        var centerCSS = 
+    expandAllBio() {
+        var centerCSS =
         {
             display: "block",
             marginLeft: "auto",
@@ -31,7 +30,7 @@ class SidePanel extends React.Component {
             width: "50%"
         }
         var label = this.props.defaultExpandBio === false ? "Expand All Bios" : "Minimize All Bios";
-        return(<Button variant="light" style={centerCSS} onClick={e => {
+        return (<Button variant="light" style={centerCSS} onClick={e => {
             this.props.expandAllBio();
         }}>{label}</Button>)
     }
@@ -82,9 +81,12 @@ class SidePanel extends React.Component {
             return (
                 <div className="Teaser Card">
                     <Card border="dark" style={{ width: '18rem' }}>
+                        <Card.Header></Card.Header>
+
                         <Card.Img variant="top" src={this.props.teaserList[counter].user.photos[0].url}
                             style={cardImageStyles}
                             onClick={e => { this.changePhoto() }} />
+                        <Card.Header>They already liked you</Card.Header>
                         {this.renderCardBody()}
                     </Card>
                 </div>)
@@ -100,7 +102,7 @@ class SidePanel extends React.Component {
             this.setState({ counter: this.state.counter + 1 })
         }
 
-        this.setState({showBio:false})
+        this.setState({ showBio: false })
     }
 
     render() {

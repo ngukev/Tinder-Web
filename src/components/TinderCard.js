@@ -10,11 +10,12 @@ class TinderCard extends React.Component {
         super(props);
         this.state = {
             counter:0,
-            showBio : false
+            showBio : false,
         };
         this.changePhotos = this.changePhotos.bind(this);
         this.showBio = this.showBio.bind(this);
-        // this.renderBio
+        this.determineToShowBio = this.determineToShowBio.bind(this);
+        this.generateTinderBio = this.generateTinderBio.bind(this);
     }
 
     changePhotos()
@@ -32,6 +33,47 @@ class TinderCard extends React.Component {
     {
         this.setState({showBio : !this.state.showBio})
         this.props.expandSidePanel();
+    }
+    determineToShowBio()
+    {
+        var myResult = false;
+         
+        return myResult;
+    }
+    generateTinderBio()
+    {
+        var user = this.props.user;
+        var schoolEmoji = <span role="img" aria-label="School">🏫</span> ;
+        var workEmoji =<span role="img" aria-label="Work">💼</span> ;
+        var schoolBio = "";
+        if(user.user.schools.length > 0)
+        {
+            schoolBio = user.user.schools[0].name;
+        }
+
+        var workBio = "";
+        if(user.user.jobs.length > 0)
+        {
+            if(user.user.jobs[0].company != null)
+            {
+                workBio += user.user.jobs[0].company.name;
+            }
+            if(user.user.jobs[0].title != null)
+            {
+                workBio += user.user.jobs[0].title.name;
+            }
+        }
+        var bio = user.user.bio;
+        return(
+            <>
+            {schoolEmoji}{schoolBio}
+            <br></br>
+            {workEmoji}{workBio}
+            <br></br>
+            {bio}
+            </>
+            );
+
     }
 
     render() {
@@ -52,14 +94,17 @@ class TinderCard extends React.Component {
 
         var buttonLabel = user.user.name + ", " + calculateAge(user.user.birth_date) + counterLabel 
 
+        this.generateTinderBio();
+
         return (
             <div className="TinderCard">
                 <Card bg={backgroundColor} border="dark" style={{ width: '18rem' }} key={user.user._id}>
+                    <Card.Header></Card.Header>
                     <Card.Img variant="top" src={user.user.photos[currentCounter].url} style={cardImageStyles} onClick={e => this.changePhotos()} />
                     <Card.Body>
                         <Card.Title><Button variant ={buttonColor} block onClick={e => {this.showBio()}}>{buttonLabel}</Button></Card.Title>
                         <Card.Text>
-                            {(this.state.showBio === true || this.props.defaultExpandBio === true) ? user.user.bio : null}
+                            {this.state.showBio === true || this.props.defaultExpandBio === true ? this.generateTinderBio() : null}
                         </Card.Text>
                         <FontAwesomeIcon icon={faStar}  style={{float:"left",width: "20px"}} onClick= {e => {console.log("clicked btich")}} />
                         <Form>
