@@ -31,6 +31,7 @@ class TinderCard extends React.Component {
     showBio()
     {
         this.setState({showBio : !this.state.showBio})
+        this.props.expandSidePanel();
     }
 
     render() {
@@ -44,7 +45,7 @@ class TinderCard extends React.Component {
         var currentCounter = this.state.counter;
         return (
             <div className="TinderCard">
-                <Card bg="light" style={{ width: '18rem' }} key={user.user._id}>
+                <Card border="dark" style={{ width: '18rem' }} key={user.user._id}>
                     <Card.Img variant="top" src={user.user.photos[currentCounter].url} style={cardImageStyles} onClick={e => this.changePhotos()} />
                     <Card.Body>
                         <Card.Title><Button block onClick={e => {this.showBio()}}>{user.user.name + ", " + calculateAge(user.user.birth_date)}</Button></Card.Title>

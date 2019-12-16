@@ -1,7 +1,6 @@
 import React from 'react';
-import { CardDeck, CardColumns } from 'react-bootstrap';
+import { CardDeck } from 'react-bootstrap';
 import '../css/app.css';
-import { fetchRecommendations } from '../services/TinderAPIService';
 import TinderCard from './TinderCard';
 
 class Gallery extends React.Component {
@@ -17,7 +16,7 @@ class Gallery extends React.Component {
     var LIMIT = 10;
     var myCardList = [];
     this.props.userDataList.forEach((user, i) => {
-      myCardList.push(<TinderCard user={user} />);
+      myCardList.push(<TinderCard user={user} expandSidePanel={this.props.expandSidePanel} />);
     });
     var myCardDeck = [];
     for (var i = 0; i < LIMIT; i += 5) {
@@ -28,15 +27,20 @@ class Gallery extends React.Component {
         {myCardList[i + 3]}
         {myCardList[i + 4]}
       </CardDeck>)
+      if(i === 0)
+      {
+        myCardDeck.push(<br key={"card br"}></br>);
+      }
     }
 
     return (myCardDeck);
   }
   render() {
     return (
-      <div className="Gallery">
+      <>
+        <br></br>
         {this.renderGallery()}
-      </div>
+      </>
     );
   }
 }
