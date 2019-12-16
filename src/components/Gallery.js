@@ -30,7 +30,10 @@ class Gallery extends React.Component {
     var LIMIT = 10;
     var myCardList = [];
     this.props.userDataList.forEach((user, i) => {
-      myCardList.push(<TinderCard user={user} userFound={this.findUserInTeaser(user)} expandSidePanel={this.props.expandSidePanel} />);
+      myCardList.push(<TinderCard user={user} 
+                                  userFound={this.findUserInTeaser(user)} 
+                                  expandSidePanel={this.props.expandSidePanel} 
+                                  defaultExpandBio={this.props.defaultExpandBio}/>);
     });
     var myCardDeck = [];
     for (var i = 0; i < LIMIT; i += 5) {

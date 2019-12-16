@@ -13,17 +13,21 @@ class App extends React.Component {
     this.state = {
       userDataList: [],
       teaserList: [],
-      sidePanelHeight : null
+      sidePanelHeight: null,
+      expandAllBio: false
     };
     this.renderNavBar = this.renderNavBar.bind(this);
     this.expandSidePanel = this.expandSidePanel.bind(this);
+    this.expandAllBio = this.expandAllBio.bind(this);
   }
 
-  expandSidePanel()
-  {
+  expandAllBio() {
+    this.setState({ expandAllBio: !this.state.expandAllBio })
+  }
+  expandSidePanel() {
     var height = document.getElementsByClassName("Gallery")[0].offsetHeight;
     height = height.toString(10) + "px";
-    this.setState({sidePanelHeight:height})
+    this.setState({ sidePanelHeight: height })
   }
 
   componentDidMount() {
@@ -34,21 +38,18 @@ class App extends React.Component {
     })
 
     fetchTeasers().then(response => {
-    if (response != null && response.data.meta.status === 200) {
+      if (response != null && response.data.meta.status === 200) {
         this.setState({ teaserList: response.data.data.results })
-    }
-  })
+      }
+    })
   }
 
-  componentDidUpdate(prevProps, prevState)
-  {
-    if(document.getElementsByClassName("Gallery") != null)
-    {
+  componentDidUpdate(prevProps, prevState) {
+    if (document.getElementsByClassName("Gallery") != null) {
       var height = document.getElementsByClassName("Gallery")[0].offsetHeight;
       height = height.toString(10) + "px";
-      if(height !== this.state.sidePanelHeight)
-      {
-        this.setState({sidePanelHeight : height})
+      if (height !== this.state.sidePanelHeight) {
+        this.setState({ sidePanelHeight: height })
       }
     }
   }
@@ -68,11 +69,36 @@ class App extends React.Component {
   }
 
   render() {
+    var sidePanelStyles = {
+      width: "16%",
+      height: this.state.sidePanelHeight,
+      float: "left",
+      backgroundColor: "#3a3a3a",
+      paddingLeft: "5px"
+    };
+
+    var galleryPanelStyles = {
+      width: "84%",
+      float: "right",
+      paddingLeft: "20px"
+    }
+
+
     return (
       <div className="Main App">
         {this.renderNavBar()}
-          <div className="Side Panel" style={{width: "16%", height:this.state.sidePanelHeight, float:"left", backgroundColor:"#3a3a3a", paddingLeft:"5px"}}><SidePanel teaserList={this.state.teaserList} userDataList={this.state.userDataList}/></div>
-          <div className="Gallery" style={{width: "84%", float:"right", paddingLeft:"20px"}}><Gallery userDataList={this.state.userDataList} teaserList={this.state.teaserList} expandSidePanel={this.expandSidePanel}/></div>
+        <div className="Side Panel" style={sidePanelStyles}>
+          <SidePanel teaserList={this.state.teaserList} 
+                     userDataList={this.state.userDataList}
+                     expandAllBio = {this.expandAllBio}
+                     defaultExpandBio = {this.state.expandAllBio} />
+        </div>
+        <div className="Gallery" style={galleryPanelStyles}>
+          <Gallery userDataList={this.state.userDataList} 
+                   teaserList={this.state.teaserList} 
+                   expandSidePanel={this.expandSidePanel}
+                   defaultExpandBio={this.state.expandAllBio} />
+        </div>
       </div>
     );
   }

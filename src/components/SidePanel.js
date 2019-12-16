@@ -15,10 +15,25 @@ class SidePanel extends React.Component {
         this.renderTeaserCard = this.renderTeaserCard.bind(this);
         this.renderCardBody = this.renderCardBody.bind(this);
         this.showBio = this.showBio.bind(this);
+        this.expandAllBio = this.expandAllBio.bind(this);
     }
 
     showBio() {
         this.setState({ showBio: !this.state.showBio })
+    }
+    expandAllBio()
+    {
+        var centerCSS = 
+        {
+            display: "block",
+            marginLeft: "auto",
+            marginRight: "auto",
+            width: "50%"
+        }
+        var label = this.props.defaultExpandBio === false ? "Expand All Bios" : "Minimize All Bios";
+        return(<Button variant="light" style={centerCSS} onClick={e => {
+            this.props.expandAllBio();
+        }}>{label}</Button>)
     }
 
     renderCardBody() {
@@ -31,13 +46,13 @@ class SidePanel extends React.Component {
             }
 
         })
-        
+
         var numberLabel = this.state.counter + 1;
         numberLabel = "(" + numberLabel.toString(10) + "/" + this.props.teaserList.length.toString(10) + ") ";
-        
+        var buttonLabel = null;
         if (userData != null) {
 
-            var buttonLabel = userData.name + ", " + calculateAge(userData.birth_date) + " " + numberLabel;
+            buttonLabel = userData.name + ", " + calculateAge(userData.birth_date) + " " + numberLabel;
             return (<Card.Body>
                 <Card.Title>
                     <Button variant="success" block onClick={e => { this.showBio() }}>{buttonLabel}</Button></Card.Title>
@@ -47,7 +62,7 @@ class SidePanel extends React.Component {
             </Card.Body>)
         }
         else {
-            var buttonLabel = "??? " + numberLabel;
+            buttonLabel = "??? " + numberLabel;
             return (<Card.Body>
                 <Card.Title><Button variant="outline-secondary" block disabled>{buttonLabel}</Button></Card.Title>
             </Card.Body>);
@@ -93,6 +108,9 @@ class SidePanel extends React.Component {
             <>
                 <br></br>
                 {this.renderTeaserCard()}
+                <br></br>
+                {this.expandAllBio()}
+
             </>);
 
     }

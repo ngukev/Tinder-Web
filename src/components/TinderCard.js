@@ -47,14 +47,19 @@ class TinderCard extends React.Component {
         var backgroundColor = this.props.userFound === true ? "danger" : "light";
         var buttonColor = this.props.userFound === true ? "secondary" : "outline-primary";
 
+        var counterLabel = this.state.counter + 1;
+        counterLabel = " (" +counterLabel.toString(10) + "/" + this.props.user.user.photos.length.toString(10) +")";
+
+        var buttonLabel = user.user.name + ", " + calculateAge(user.user.birth_date) + counterLabel 
+
         return (
             <div className="TinderCard">
                 <Card bg={backgroundColor} border="dark" style={{ width: '18rem' }} key={user.user._id}>
                     <Card.Img variant="top" src={user.user.photos[currentCounter].url} style={cardImageStyles} onClick={e => this.changePhotos()} />
                     <Card.Body>
-                        <Card.Title><Button variant ={buttonColor} block onClick={e => {this.showBio()}}>{user.user.name + ", " + calculateAge(user.user.birth_date)}</Button></Card.Title>
+                        <Card.Title><Button variant ={buttonColor} block onClick={e => {this.showBio()}}>{buttonLabel}</Button></Card.Title>
                         <Card.Text>
-                            {this.state.showBio === true ? user.user.bio : null}
+                            {(this.state.showBio === true || this.props.defaultExpandBio === true) ? user.user.bio : null}
                         </Card.Text>
                         <FontAwesomeIcon icon={faStar}  style={{float:"left",width: "20px"}} onClick= {e => {console.log("clicked btich")}} />
                         <Form>

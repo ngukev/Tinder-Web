@@ -1,5 +1,5 @@
-import * as TinderConstants from '../constants/TinderConstants';
 import axios from 'axios';
+import * as TinderConstants from '../constants/TinderConstants';
 
 export const fetchRecommendations = () =>
 {
