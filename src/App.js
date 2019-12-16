@@ -4,7 +4,7 @@ import { Navbar } from 'react-bootstrap';
 import Gallery from './components/Gallery';
 import SidePanel from './components/SidePanel';
 import './css/app.css';
-import { fetchRecommendations, fetchTeaser } from './services/TinderAPIService';
+import { fetchRecommendations, fetchTeasers } from './services/TinderAPIService';
 
 class App extends React.Component {
 
@@ -33,7 +33,7 @@ class App extends React.Component {
       }
     })
 
-    fetchTeaser().then(response => {
+    fetchTeasers().then(response => {
     if (response != null && response.data.meta.status === 200) {
         this.setState({ teaserList: response.data.data.results })
     }
@@ -71,8 +71,8 @@ class App extends React.Component {
     return (
       <div className="Main App">
         {this.renderNavBar()}
-          <div className="Side Panel" style={{width: "16%", height:this.state.sidePanelHeight, float:"left", backgroundColor:"#3a3a3a"}}><SidePanel teaserList={this.state.teaserList}/></div>
-          <div className="Gallery" style={{width: "84%", float:"right", paddingLeft:"20px"}}><Gallery userDataList={this.state.userDataList} expandSidePanel={this.expandSidePanel}/></div>
+          <div className="Side Panel" style={{width: "16%", height:this.state.sidePanelHeight, float:"left", backgroundColor:"#3a3a3a", paddingLeft:"5px"}}><SidePanel teaserList={this.state.teaserList} userDataList={this.state.userDataList}/></div>
+          <div className="Gallery" style={{width: "84%", float:"right", paddingLeft:"20px"}}><Gallery userDataList={this.state.userDataList} teaserList={this.state.teaserList} expandSidePanel={this.expandSidePanel}/></div>
       </div>
     );
   }

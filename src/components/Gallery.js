@@ -8,15 +8,29 @@ class Gallery extends React.Component {
     super(props);
     this.state = {};
     this.renderGallery = this.renderGallery.bind(this);
+    this.findUserInTeaser = this.findUserInTeaser.bind(this)
   }
 
+  findUserInTeaser(user)
+  {
+    var teaserList = this.props.teaserList;
+    var found = false;
+    teaserList.forEach(teaser => {
+      if(teaser.user.photos[0].id ===user.user.photos[0].id)
+      {
+        found = true;
+        return;
+      }
+    })
+    return found;
+  }
 
   renderGallery() {
 
     var LIMIT = 10;
     var myCardList = [];
     this.props.userDataList.forEach((user, i) => {
-      myCardList.push(<TinderCard user={user} expandSidePanel={this.props.expandSidePanel} />);
+      myCardList.push(<TinderCard user={user} userFound={this.findUserInTeaser(user)} expandSidePanel={this.props.expandSidePanel} />);
     });
     var myCardDeck = [];
     for (var i = 0; i < LIMIT; i += 5) {

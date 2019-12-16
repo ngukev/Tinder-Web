@@ -1,17 +1,57 @@
 import 'bootstrap/dist/css/bootstrap.min.css';
 import React from 'react';
-import { Card } from 'react-bootstrap';
-
+import { Card, Button } from 'react-bootstrap';
+import moment from 'moment';
 
 class SidePanel extends React.Component {
 
     constructor(props) {
         super(props);
         this.state = {
-            counter: 0
+            counter: 0,
+            showBio : false
         };
         this.changePhoto = this.changePhoto.bind(this);
         this.renderTeaserCard = this.renderTeaserCard.bind(this);
+        this.renderCardBody = this.renderCardBody.bind(this);
+        this.showBio = this.showBio.bind(this);
+    }
+
+    showBio() {
+        this.setState({ showBio: !this.state.showBio })
+    }
+
+    renderCardBody() {
+        var teaser = this.props.teaserList[this.state.counter];
+        var userData = null;
+        this.props.userDataList.forEach(user => {
+            if (teaser.user.photos[0].id === user.user.photos[0].id) {
+                userData = user.user;
+                return;
+            }
+
+        })
+        
+        var numberLabel = this.state.counter + 1;
+        numberLabel = "(" + numberLabel.toString(10) + "/" + this.props.teaserList.length.toString(10) + ") ";
+        
+        if (userData != null) {
+
+            var buttonLabel = userData.name + ", " + calculateAge(userData.birth_date) + " " + numberLabel;
+            return (<Card.Body>
+                <Card.Title>
+                    <Button variant="success" block onClick={e => { this.showBio() }}>{buttonLabel}</Button></Card.Title>
+                <Card.Text>
+                    {this.state.showBio === true ? userData.bio : null}
+                </Card.Text>
+            </Card.Body>)
+        }
+        else {
+            var buttonLabel = "??? " + numberLabel;
+            return (<Card.Body>
+                <Card.Title><Button variant="outline-secondary" block disabled>{buttonLabel}</Button></Card.Title>
+            </Card.Body>);
+        }
     }
 
     renderTeaserCard() {
@@ -30,9 +70,7 @@ class SidePanel extends React.Component {
                         <Card.Img variant="top" src={this.props.teaserList[counter].user.photos[0].url}
                             style={cardImageStyles}
                             onClick={e => { this.changePhoto() }} />
-                        <Card.Body>
-                            <Card.Title>???</Card.Title>
-                        </Card.Body>
+                        {this.renderCardBody()}
                     </Card>
                 </div>)
         }
@@ -46,6 +84,8 @@ class SidePanel extends React.Component {
         else {
             this.setState({ counter: this.state.counter + 1 })
         }
+
+        this.setState({showBio:false})
     }
 
     render() {
@@ -58,6 +98,10 @@ class SidePanel extends React.Component {
     }
 }
 
+function calculateAge(birthdayString) {
+    var formattedBirthdayString = birthdayString.split("T")[0];
+    return moment(formattedBirthdayString, "YYYY-MM-DD").fromNow().split(" ")[0];
+}
 
 
 export default SidePanel;
