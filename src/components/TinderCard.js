@@ -66,10 +66,12 @@ class TinderCard extends React.Component {
         var bio = user.user.bio;
         return(
             <>
-            {schoolEmoji}{schoolBio}
-            <br></br>
-            {workEmoji}{workBio}
-            <br></br>
+            {schoolBio !== "" ?  schoolEmoji : null}
+            {schoolBio !== "" ?  schoolBio : null}
+            {schoolBio !== "" ? <br></br> : null }
+            {workBio !== "" ?  workEmoji : null }
+            {workBio !== ""? workBio : null}
+            {workBio !== ""? <br></br> : null }
             {bio}
             </>
             );
