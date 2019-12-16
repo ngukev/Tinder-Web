@@ -45,6 +45,7 @@ class TinderCard extends React.Component {
         var user = this.props.user;
         var schoolEmoji = <span role="img" aria-label="School">🏫</span> ;
         var workEmoji =<span role="img" aria-label="Work">💼</span> ;
+        var locationEmoji = <span role="img" aria-label="Location">📍</span> ;
         var schoolBio = "";
         if(user.user.schools.length > 0)
         {
@@ -63,6 +64,13 @@ class TinderCard extends React.Component {
                 workBio += user.user.jobs[0].title.name;
             }
         }
+
+        var distanceAway = "";
+        if(user.distance_mi != null)
+        {
+            distanceAway = user.distance_mi.toString(10) + " Miles Away.";
+        }
+
         var bio = user.user.bio;
         return(
             <>
@@ -72,6 +80,9 @@ class TinderCard extends React.Component {
             {workBio !== "" ?  workEmoji : null }
             {workBio !== ""? workBio : null}
             {workBio !== ""? <br></br> : null }
+            {distanceAway !== "" ?  locationEmoji : null }
+            {distanceAway !== ""? distanceAway : null}
+            {distanceAway !== ""? <br></br> : null }
             {bio}
             </>
             );
@@ -108,11 +119,14 @@ class TinderCard extends React.Component {
                         <Card.Text>
                             {this.state.showBio === true || this.props.defaultExpandBio === true ? this.generateTinderBio() : null}
                         </Card.Text>
-                        <FontAwesomeIcon icon={faStar}  style={{float:"left",width: "20px"}} onClick= {e => {console.log("clicked btich")}} />
+                    
                         <Form>
+                            <Card.Footer>
+                            <FontAwesomeIcon icon={faStar}  style={{float:"left",width: "20px"}} onClick= {e => {console.log("clicked btich")}} />
                             <Form.Group controlId="formBasicCheckbox">
                                 <Form.Check style={{float:"right"}} type="checkbox" label="Like" />
                             </Form.Group>
+                            </Card.Footer>
                         </Form>
 
                     </Card.Body>
