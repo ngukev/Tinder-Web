@@ -105,14 +105,14 @@ class TinderCard extends Component {
         var counterLabel = this.state.counter + 1;
         counterLabel = " (" +counterLabel.toString(10) + "/" + this.props.user.user.photos.length.toString(10) +")";
 
-        var buttonLabel = user.user.name + ", " + calculateAge(user.user.birth_date) + counterLabel 
+        var buttonLabel = user.user.name + ", " + calculateAge(user.user.birth_date);
 
         this.generateTinderBio();
 
         return (
             <div className="TinderCard">
                 <Card bg={backgroundColor} border="dark" style={{ width: '19rem' }} key={user.user._id}>
-                    <Card.Header></Card.Header>
+                    <Card.Header style={{textAlign:"center"}}>{counterLabel}</Card.Header>
                     <Card.Img variant="top" src={user.user.photos[currentCounter].url} style={cardImageStyles} onClick={e => this.changePhotos()} />
                     <Card.Body>
                         <Card.Title><Button variant ={buttonColor} block onClick={e => {this.showBio()}}>{buttonLabel}</Button></Card.Title>
