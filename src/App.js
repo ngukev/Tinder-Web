@@ -18,7 +18,7 @@ class App extends Component {
     };
     this.renderNavBar = this.renderNavBar.bind(this);
     this.expandSidePanel = this.expandSidePanel.bind(this);
-    this.expandAllBio = this.expandAllBio.bind(this);
+    this.expandAllBio = this.expandAllBio.bind(this); 
   }
 
   expandAllBio() {
@@ -82,7 +82,8 @@ class App extends Component {
           <SidePanel teaserList={this.props.teaserList} 
                      recommendationList={this.props.recommendationList}
                      expandAllBio = {this.expandAllBio}
-                     defaultExpandBio = {this.state.expandAllBio} />
+                     defaultExpandBio = {this.state.expandAllBio}
+                     incrimentCounter = {this.incrimentCounter} />
         </div>
         <div className="Gallery" style={galleryPanelStyles}>
           <Gallery recommendationList={this.props.recommendationList} 

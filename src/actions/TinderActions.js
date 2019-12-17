@@ -42,3 +42,20 @@ export const fetchProfile = () => {
         })
     }
 }
+
+export const swipeAndNext = (recommendationList) => {
+    return dispatch => {
+        var data = [];
+        if(recommendationList.length > 8)
+        {
+            for(var i = 8; i < recommendationList.length; i++)
+            {
+                data.push(recommendationList[i])
+            }
+        }
+        dispatch({
+            type: ActionConstants.SWIPE_AND_NEXT,
+            payload: data
+        })
+    }
+}

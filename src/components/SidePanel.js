@@ -4,6 +4,9 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import React, { Component } from 'react';
 import { Button, Table } from 'react-bootstrap';
 import SettingsPanel from './SettingsPanel';
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
+import * as TinderActions from '../actions/TinderActions';
 
 class SidePanel extends Component {
 
@@ -28,7 +31,7 @@ class SidePanel extends Component {
                         </tr>
                         <tr>
                             <td style={labelCSS}>Swipe and Next</td>
-                            <td><FontAwesomeIcon icon={faPlayCircle} style={{ fontSize: "40px" }} color="white" onClick={e => { console.log("clicked btich") }} /></td>
+                            <td><FontAwesomeIcon icon={faPlayCircle} style={{ fontSize: "40px" }} color="white" onClick={e => this.props.TinderActions.swipeAndNext(this.props.recommendationList)} /></td>
                         </tr>
                     </tbody>
                 </Table>
@@ -38,4 +41,16 @@ class SidePanel extends Component {
     }
 }
 
-export default SidePanel;
+function mapStateToProps(state) {
+    return { profile: state.TinderReducer.profile,
+             recommendationList: state.TinderReducer.recommendationList };
+}
+
+function mapDispatchToProps(dispatch)
+{
+  return{
+    TinderActions : bindActionCreators(TinderActions,dispatch)
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(SidePanel);

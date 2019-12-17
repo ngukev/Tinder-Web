@@ -23,6 +23,11 @@ export default (state = defaultState, action) => {
                 ...state,
                 profile: action.payload
             }
+        case ActionConstants.SWIPE_AND_NEXT:
+            return {
+                ...state,
+                recommendationList: action.payload
+            }
         default:
             return state
     }
