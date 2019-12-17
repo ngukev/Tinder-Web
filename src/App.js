@@ -13,7 +13,7 @@ class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      sidePanelHeight: null,
+      sidePanelHeight: "1025px",
       expandAllBio: false
     };
     this.renderNavBar = this.renderNavBar.bind(this);
@@ -38,7 +38,7 @@ class App extends Component {
 
   componentDidUpdate(prevProps, prevState) {
     if (document.getElementsByClassName("Gallery") != null) {
-      var height = document.getElementsByClassName("Gallery")[0].offsetHeight;
+      var height = document.getElementsByClassName("Gallery")[0].offsetHeight < 1025 ? "1025" : document.getElementsByClassName("Gallery")[0].offsetHeight;
       height = height.toString(10) + "px";
       if (height !== this.state.sidePanelHeight) {
         this.setState({ sidePanelHeight: height })

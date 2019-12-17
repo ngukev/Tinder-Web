@@ -1,4 +1,4 @@
-import { faPlayCircle } from '@fortawesome/free-solid-svg-icons';
+import { faPlayCircle,faRedo } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import React, { Component } from 'react';
@@ -20,6 +20,8 @@ class SidePanel extends Component {
             fontSize: "24px",
             color:"white"
         };
+        var playLabel = this.props.recommendationList.length > 8 ? "Swipe and Next" : "Swipe and Reload";
+        var icon = this.props.recommendationList.length > 8 ? faPlayCircle : faRedo;
         return (
             <>
                 <br></br>
@@ -30,8 +32,8 @@ class SidePanel extends Component {
                             <td></td>
                         </tr>
                         <tr>
-                            <td style={labelCSS}>Swipe and Next</td>
-                            <td><FontAwesomeIcon icon={faPlayCircle} style={{ fontSize: "40px" }} color="white" onClick={e => this.props.TinderActions.swipeAndNext(this.props.recommendationList)} /></td>
+                            <td style={labelCSS}>{playLabel}</td>
+                            <td><FontAwesomeIcon icon={icon} style={{ fontSize: "40px" }} color="white" onClick={e => this.props.TinderActions.swipeAndNext(this.props.recommendationList)} /></td>
                         </tr>
                     </tbody>
                 </Table>
