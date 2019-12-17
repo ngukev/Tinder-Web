@@ -23,7 +23,6 @@ class SettingsPanel extends Component {
                 fontWeight: "bold",
                 fontSize: "24px"
             }
-            console.log("PROFILE: ",this.props.profile);
             var profile = this.props.profile;
             return <div className="Settings Panel">
                 <Card border="dark" style={{ width: '23rem' }}>
