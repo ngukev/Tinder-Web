@@ -111,7 +111,7 @@ class TinderCard extends Component {
 
         return (
             <div className="TinderCard">
-                <Card bg={backgroundColor} border="dark" style={{ width: '18rem' }} key={user.user._id}>
+                <Card bg={backgroundColor} border="dark" style={{ width: '19rem' }} key={user.user._id}>
                     <Card.Header></Card.Header>
                     <Card.Img variant="top" src={user.user.photos[currentCounter].url} style={cardImageStyles} onClick={e => this.changePhotos()} />
                     <Card.Body>
@@ -122,9 +122,9 @@ class TinderCard extends Component {
                     
                         <Form>
                             <Card.Footer>
-                            <FontAwesomeIcon icon={faStar}  style={{float:"left",width: "20px"}} onClick= {e => {console.log("clicked btich")}} />
-                            <Form.Group controlId="formBasicCheckbox">
-                                <Form.Check style={{float:"right"}} type="checkbox" label="Like" />
+                            <FontAwesomeIcon icon={faStar}  style={{float:"left",width: "20px"}} color="#21b3bf" onClick= {e => {console.log("clicked btich")}} />
+                            <Form.Group controlId="formBasicCheckbox" key={user.user._id + " checkbox"}>
+                                <Form.Check style={{float:"right"}} type="checkbox" label="Like"/>
                             </Form.Group>
                             </Card.Footer>
                         </Form>

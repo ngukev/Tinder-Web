@@ -1,120 +1,41 @@
+import { faPlayCircle } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import React, {Component} from 'react';
-import { Card, Button } from 'react-bootstrap';
-import * as UserHelper from '../helpers/UserHelper';
-import moment from 'moment';
+import React, { Component } from 'react';
+import { Button, Table } from 'react-bootstrap';
+import SettingsPanel from './SettingsPanel';
 
 class SidePanel extends Component {
 
     constructor(props) {
         super(props);
-        this.state = {
-            counter: 0,
-            showBio: false
-        };
-        this.changePhoto = this.changePhoto.bind(this);
-        this.renderTeaserCard = this.renderTeaserCard.bind(this);
-        this.renderCardBody = this.renderCardBody.bind(this);
-        this.showBio = this.showBio.bind(this);
-        this.expandAllBio = this.expandAllBio.bind(this);
+        this.state = {};
     }
-
-    showBio() {
-        this.setState({ showBio: !this.state.showBio })
-    }
-    expandAllBio() {
-        var centerCSS =
-        {
-            display: "block",
-            marginLeft: "auto",
-            marginRight: "auto",
-            width: "50%"
-        }
-        var label = this.props.defaultExpandBio === false ? "Expand All Bios" : "Minimize All Bios";
-        return (<Button variant="light" style={centerCSS} onClick={e => {
-            this.props.expandAllBio();
-        }}>{label}</Button>)
-    }
-
-    renderCardBody() {
-        var teaser = this.props.teaserList[this.state.counter];
-        var userData = UserHelper.findUserInRecommendationList(teaser,this.props.recommendationList);
-        var numberLabel = this.state.counter + 1;
-        numberLabel = "(" + numberLabel.toString(10) + "/" + this.props.teaserList.length.toString(10) + ") ";
-        var buttonLabel = null;
-        if (userData != null) {
-
-            buttonLabel = userData.name + ", " + calculateAge(userData.birth_date) + " " + numberLabel;
-            return (<Card.Body>
-                <Card.Title>
-                    <Button variant="success" block onClick={e => { this.showBio() }}>{buttonLabel}</Button></Card.Title>
-                <Card.Text>
-                    {this.state.showBio === true ? userData.bio : null}
-                </Card.Text>
-            </Card.Body>)
-        }
-        else {
-            buttonLabel = "??? " + numberLabel;
-            return (<Card.Body>
-                <Card.Title><Button variant="outline-secondary" block disabled>{buttonLabel}</Button></Card.Title>
-            </Card.Body>);
-        }
-    }
-
-    renderTeaserCard() {
-        if (this.props.teaserList.length > 0) {
-            var cardImageStyles = {
-                width: "100%",
-                height: "17vw",
-                objectFit: "cover"
-            };
-
-            var counter = this.state.counter;
-
-            return (
-                <div className="Teaser Card">
-                    <Card border="dark" style={{ width: '18rem' }}>
-                        <Card.Header></Card.Header>
-
-                        <Card.Img variant="top" src={this.props.teaserList[counter].user.photos[0].url}
-                            style={cardImageStyles}
-                            onClick={e => { this.changePhoto() }} />
-                        <Card.Header>They already liked you</Card.Header>
-                        {this.renderCardBody()}
-                    </Card>
-                </div>)
-        }
-        return null;
-    }
-
-    changePhoto() {
-        if (this.state.counter === this.props.teaserList.length - 1) {
-            this.setState({ counter: 0 })
-        }
-        else {
-            this.setState({ counter: this.state.counter + 1 })
-        }
-
-        this.setState({ showBio: false })
-    }
-
     render() {
+        var label = this.props.defaultExpandBio === false ? "Expand All Bios" : "Minimize All Bios";
+        var labelCSS = {
+            fontSize: "24px",
+            color:"white"
+        };
         return (
             <>
                 <br></br>
-                {this.renderTeaserCard()}
+                <Table>
+                    <tbody>
+                        <tr>
+                            <td><Button variant="light" onClick={e => { this.props.expandAllBio(); }}>{label}</Button></td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td style={labelCSS}>Swipe and Next</td>
+                            <td><FontAwesomeIcon icon={faPlayCircle} style={{ fontSize: "40px" }} color="white" onClick={e => { console.log("clicked btich") }} /></td>
+                        </tr>
+                    </tbody>
+                </Table>
                 <br></br>
-                {this.expandAllBio()}
-
+                <SettingsPanel />
             </>);
-
     }
 }
-
-function calculateAge(birthdayString) {
-    var formattedBirthdayString = birthdayString.split("T")[0];
-    return moment(formattedBirthdayString, "YYYY-MM-DD").fromNow().split(" ")[0];
-}
-
 
 export default SidePanel;

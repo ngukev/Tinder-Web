@@ -62,17 +62,16 @@ class App extends Component {
 
   render() {
     var sidePanelStyles = {
-      width: "16%",
+      width: "20%",
       height: this.state.sidePanelHeight,
       float: "left",
-      backgroundColor: "#3a3a3a",
-      paddingLeft: "5px"
+      backgroundColor: "#3a3a3a"
     };
 
     var galleryPanelStyles = {
-      width: "84%",
+      width: "80%",
       float: "right",
-      paddingLeft: "20px"
+      paddingLeft: "100px"
     }
 
 
