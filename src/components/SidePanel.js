@@ -45,7 +45,8 @@ class SidePanel extends Component {
 
 function mapStateToProps(state) {
     return { profile: state.TinderReducer.profile,
-             recommendationList: state.TinderReducer.recommendationList };
+             recommendationList: state.TinderReducer.recommendationList,
+            teaserList : state.TinderReducer.teaserList };
 }
 
 function mapDispatchToProps(dispatch)

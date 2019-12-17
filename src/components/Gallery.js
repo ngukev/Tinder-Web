@@ -54,7 +54,8 @@ class Gallery extends Component {
 function mapStateToProps(state)
 {
   return {
-    teaserList : state.TinderReducer.teaserList
+    teaserList : state.TinderReducer.teaserList,
+    recommendationList: state.TinderReducer.recommendationList
   };
 }
 

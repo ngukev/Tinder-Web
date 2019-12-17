@@ -79,15 +79,12 @@ class App extends Component {
       <div className="Main App">
         {this.renderNavBar()}
         <div className="Side Panel" style={sidePanelStyles}>
-          <SidePanel teaserList={this.props.teaserList} 
-                     recommendationList={this.props.recommendationList}
-                     expandAllBio = {this.expandAllBio}
+          <SidePanel expandAllBio = {this.expandAllBio}
                      defaultExpandBio = {this.state.expandAllBio}
                      incrimentCounter = {this.incrimentCounter} />
         </div>
         <div className="Gallery" style={galleryPanelStyles}>
-          <Gallery recommendationList={this.props.recommendationList} 
-                   expandSidePanel={this.expandSidePanel}
+          <Gallery  expandSidePanel={this.expandSidePanel}
                    defaultExpandBio={this.state.expandAllBio} />
         </div>
       </div>
