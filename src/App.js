@@ -1,18 +1,18 @@
 import 'bootstrap/dist/css/bootstrap.min.css';
 import React from 'react';
 import { Navbar } from 'react-bootstrap';
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
+import * as TinderActions from './actions/TinderActions';
 import Gallery from './components/Gallery';
 import SidePanel from './components/SidePanel';
 import './css/app.css';
-import { fetchRecommendations, fetchTeasers } from './services/TinderAPIService';
 
 class App extends React.Component {
 
   constructor(props) {
     super(props);
     this.state = {
-      userDataList: [],
-      teaserList: [],
       sidePanelHeight: null,
       expandAllBio: false
     };
@@ -31,17 +31,8 @@ class App extends React.Component {
   }
 
   componentDidMount() {
-    fetchRecommendations().then(response => {
-      if (response != null && response.data.meta.status === 200) {
-        this.setState({ userDataList: response.data.data.results })
-      }
-    })
-
-    fetchTeasers().then(response => {
-      if (response != null && response.data.meta.status === 200) {
-        this.setState({ teaserList: response.data.data.results })
-      }
-    })
+    this.props.TinderActions.fetchRecommendations();
+    this.props.TinderActions.fetchTeasers();
   }
 
   componentDidUpdate(prevProps, prevState) {
@@ -88,14 +79,13 @@ class App extends React.Component {
       <div className="Main App">
         {this.renderNavBar()}
         <div className="Side Panel" style={sidePanelStyles}>
-          <SidePanel teaserList={this.state.teaserList} 
-                     userDataList={this.state.userDataList}
+          <SidePanel teaserList={this.props.teaserList} 
+                     recommendationList={this.props.recommendationList}
                      expandAllBio = {this.expandAllBio}
                      defaultExpandBio = {this.state.expandAllBio} />
         </div>
         <div className="Gallery" style={galleryPanelStyles}>
-          <Gallery userDataList={this.state.userDataList} 
-                   teaserList={this.state.teaserList} 
+          <Gallery recommendationList={this.props.recommendationList} 
                    expandSidePanel={this.expandSidePanel}
                    defaultExpandBio={this.state.expandAllBio} />
         </div>
@@ -105,5 +95,21 @@ class App extends React.Component {
 
 }
 
+function mapStateToProps(state)
+{
+  return {
+    recommendationList : state.TinderReducer.recommendationList,
+    teaserList : state.TinderReducer.teaserList
+  };
+}
 
-export default App;
+function mapDispatchToProps(dispatch)
+{
+  return{
+    TinderActions : bindActionCreators(TinderActions,dispatch)
+  }
+}
+
+
+
+ export default connect(mapStateToProps, mapDispatchToProps)(App);

@@ -1,37 +1,26 @@
 import React from 'react';
 import { CardDeck } from 'react-bootstrap';
+import { connect } from 'react-redux';
 import '../css/app.css';
 import TinderCard from './TinderCard';
+import * as UserHelper from '../helpers/UserHelper';
+
+
 
 class Gallery extends React.Component {
   constructor(props) {
     super(props);
     this.state = {};
     this.renderGallery = this.renderGallery.bind(this);
-    this.findUserInTeaser = this.findUserInTeaser.bind(this)
-  }
-
-  findUserInTeaser(user)
-  {
-    var teaserList = this.props.teaserList;
-    var found = false;
-    teaserList.forEach(teaser => {
-      if(teaser.user.photos[0].id ===user.user.photos[0].id)
-      {
-        found = true;
-        return;
-      }
-    })
-    return found;
   }
 
   renderGallery() {
 
     var LIMIT = 10;
     var myCardList = [];
-    this.props.userDataList.forEach((user, i) => {
+    this.props.recommendationList.forEach((user, i) => {
       myCardList.push(<TinderCard user={user} 
-                                  userFound={this.findUserInTeaser(user)} 
+                                  userFound={UserHelper.findUserInTeaserList(user,this.props.teaserList)} 
                                   expandSidePanel={this.props.expandSidePanel} 
                                   defaultExpandBio={this.props.defaultExpandBio}/>);
     });
@@ -62,4 +51,12 @@ class Gallery extends React.Component {
   }
 }
 
-export default Gallery;
+
+function mapStateToProps(state)
+{
+  return {
+    teaserList : state.TinderReducer.teaserList
+  };
+}
+
+ export default connect(mapStateToProps)(Gallery);

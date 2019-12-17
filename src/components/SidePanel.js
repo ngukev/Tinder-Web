@@ -1,6 +1,7 @@
 import 'bootstrap/dist/css/bootstrap.min.css';
 import React from 'react';
 import { Card, Button } from 'react-bootstrap';
+import * as UserHelper from '../helpers/UserHelper';
 import moment from 'moment';
 
 class SidePanel extends React.Component {
@@ -37,15 +38,7 @@ class SidePanel extends React.Component {
 
     renderCardBody() {
         var teaser = this.props.teaserList[this.state.counter];
-        var userData = null;
-        this.props.userDataList.forEach(user => {
-            if (teaser.user.photos[0].id === user.user.photos[0].id) {
-                userData = user.user;
-                return;
-            }
-
-        })
-
+        var userData = UserHelper.findUserInRecommendationList(teaser,this.props.recommendationList);
         var numberLabel = this.state.counter + 1;
         numberLabel = "(" + numberLabel.toString(10) + "/" + this.props.teaserList.length.toString(10) + ") ";
         var buttonLabel = null;
