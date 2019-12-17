@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {Component} from 'react';
 import { CardDeck } from 'react-bootstrap';
 import { connect } from 'react-redux';
 import '../css/app.css';
@@ -7,7 +7,7 @@ import * as UserHelper from '../helpers/UserHelper';
 
 
 
-class Gallery extends React.Component {
+class Gallery extends Component {
   constructor(props) {
     super(props);
     this.state = {};

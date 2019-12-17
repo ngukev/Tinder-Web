@@ -1,10 +1,10 @@
 import 'bootstrap/dist/css/bootstrap.min.css';
-import React from 'react';
+import React, {Component} from 'react';
 import { Card, Button } from 'react-bootstrap';
 import * as UserHelper from '../helpers/UserHelper';
 import moment from 'moment';
 
-class SidePanel extends React.Component {
+class SidePanel extends Component {
 
     constructor(props) {
         super(props);

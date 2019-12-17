@@ -1,5 +1,5 @@
 import 'bootstrap/dist/css/bootstrap.min.css';
-import React from 'react';
+import React,{Component} from 'react';
 import { Navbar } from 'react-bootstrap';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
@@ -8,7 +8,7 @@ import Gallery from './components/Gallery';
 import SidePanel from './components/SidePanel';
 import './css/app.css';
 
-class App extends React.Component {
+class App extends Component {
 
   constructor(props) {
     super(props);
