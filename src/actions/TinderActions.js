@@ -29,4 +29,16 @@ export const fetchTeasers = () => {
     }
 }
 
-
+export const fetchProfile = () => {
+    return dispatch => {
+        TinderAPIService.fetchProfile().then(response => {
+            if (response != null && response.data.meta.status === 200) {
+                var data = response.data.data;
+                dispatch({
+                    type: ActionConstants.FETCH_PROFILE,
+                    payload: data
+                })
+            }
+        })
+    }
+}

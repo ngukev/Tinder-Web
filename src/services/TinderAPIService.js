@@ -12,3 +12,9 @@ export const fetchTeasers = () =>
     var teaserURL = TinderConstants.BASE_URL + TinderConstants.TEASER;
     return axios.get(teaserURL);
 }
+
+export const fetchProfile = () =>
+{
+    var profileURL = TinderConstants.BASE_URL + TinderConstants.PROFILE;
+    return axios.get(profileURL);
+}

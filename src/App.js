@@ -33,6 +33,7 @@ class App extends React.Component {
   componentDidMount() {
     this.props.TinderActions.fetchRecommendations();
     this.props.TinderActions.fetchTeasers();
+    this.props.TinderActions.fetchProfile();
   }
 
   componentDidUpdate(prevProps, prevState) {

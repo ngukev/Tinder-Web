@@ -3,7 +3,7 @@ import * as ActionConstants from '../constants/ActionConstants';
 var defaultState = {
     recommendationList: [],
     teaserList: [],
-
+    profile : null
 }
 
 export default (state = defaultState, action) => {
@@ -17,6 +17,11 @@ export default (state = defaultState, action) => {
             return {
                 ...state,
                 teaserList: action.payload
+            }
+        case ActionConstants.FETCH_PROFILE:
+            return{
+                ...state,
+                profile: action.payload
             }
         default:
             return state
