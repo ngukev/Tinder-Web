@@ -1,6 +1,6 @@
-import * as TinderAPIService from '../services/TinderAPIService';
 import * as ActionConstants from '../constants/ActionConstants';
-import store from '../store';
+import * as TinderAPIService from '../services/TinderAPIService';
+import * as TinderConstants from '../constants/TinderConstants';
 
 export const fetchRecommendations = () => {
     return dispatch => {
@@ -47,9 +47,9 @@ export const fetchProfile = () => {
 export const swipeAndNext = (recommendationList) => {
     return dispatch => {
         var data = [];
-        if(recommendationList.length > 8)
+        if(recommendationList.length > TinderConstants.LIMIT)
         {
-            for(var i = 8; i < recommendationList.length; i++)
+            for(var i = TinderConstants.LIMIT; i < recommendationList.length; i++)
             {
                 data.push(recommendationList[i])
             }

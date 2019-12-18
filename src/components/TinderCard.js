@@ -114,10 +114,7 @@ class TinderCard extends Component {
 
         var buttonLabel = this.state.showBio === true ? "Minimize Bio" : "Expand Bio";
 
-        var steveBuscemiUrl = "https://cdn2.lamag.com/wp-content/uploads/sites/6/2012/12/buscemipicfull.jpg";
-
-        console.log(user.user.name, currentCounter, user.user.photos.length);
-        var imageUrl = user.user.photos[currentCounter] !== null ? user.user.photos[currentCounter].url : steveBuscemiUrl;
+        var imageUrl = user.user.photos[currentCounter].url;
 
         this.generateTinderBio();
 
@@ -139,8 +136,8 @@ class TinderCard extends Component {
                         <Form>
                             <Card.Footer>
                                 <FontAwesomeIcon icon={faStar} style={{ float: "left", width: "20px" }} color="#21b3bf" onClick={e => { console.log("clicked btich") }} />
-                                <Form.Group controlId="formBasicCheckbox" key={user.user._id + " checkbox"}>
-                                    <Form.Check style={{ float: "right" }} type="checkbox" label="Like" onChange = {e => {this.handleBoxChecked(e.target.checked)}} />
+                                <Form.Group controlId={"formBasicCheckbox " + user.user._id } key={user.user._id + " checkbox"}>
+                                    <Form.Check style={{ float: "right"}} size="lg" type="switch" label="Like" onChange = {e => {this.handleBoxChecked(e.target.checked)}} />
                                 </Form.Group>
                             </Card.Footer>
                         </Form>

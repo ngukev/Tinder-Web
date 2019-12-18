@@ -1,8 +1,6 @@
-import { faTools } from '@fortawesome/free-solid-svg-icons';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import React, { Component } from 'react';
-import { Card, Table } from 'react-bootstrap';
+import { Button, Card, Table } from 'react-bootstrap';
 import { connect } from 'react-redux';
 
 class SettingsPanel extends Component {
@@ -14,25 +12,16 @@ class SettingsPanel extends Component {
     render() {
 
         if (this.props.profile != null) {
-            var stylesCSS =
-            {
-                display: "block",
-                marginLeft: "auto",
-                marginRight: "auto",
-                width: "60%",
-                fontWeight: "bold",
-                fontSize: "24px"
-            }
             var profile = this.props.profile;
             return <div className="Settings Panel">
                 <Card border="dark" style={{ width: '23rem' }}>
                     <Card.Header >
-                        <h1 style={stylesCSS}>Preferences</h1>
+                        <Button disabled block>Edit Preference</Button>
                     </Card.Header>
                     <Card.Body>
                         {profile.bio}
                         <br></br><br></br>
-                        <Table striped bordered size="sm">
+                        <Table  striped bordered size="sm">
                             <tbody>
                                 <tr>
                                     <td>Age Range</td>

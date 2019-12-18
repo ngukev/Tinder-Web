@@ -69,31 +69,39 @@ class App extends Component {
     };
 
     var galleryPanelStyles = {
-      width: "61%",
+      width: "80%",
       float: "left",
       paddingLeft: "30px"
     }
 
-    var toastPanelStyles = {
-      width: "19%",
-      float: "left"
-    }
-
+    var toastCss = {
+      position: "absolute",
+      top: 0,
+      right: 0
+    };
+    
     return (
 
-      <div className="Main App">
+      <div className="Main App" >
         {this.renderNavBar()}
         <div className="Side Panel" style={sidePanelStyles}>
           <SidePanel expandAllBio={this.expandAllBio}
             defaultExpandBio={this.state.expandAllBio}
             incrimentCounter={this.incrimentCounter} />
         </div>
+        <div className="Toast Panel" style={toastCss}>
+          <Toast>
+            <Toast.Header>
+              <img src="holder.js/20x20?text=%20" className="rounded mr-2" alt="" />
+              <strong className="mr-auto">Bootstrap</strong>
+              <small>11 mins ago</small>
+            </Toast.Header>
+            <Toast.Body>Hello, world! This is a toast message.</Toast.Body>
+          </Toast>
+        </div>
         <div className="Gallery" style={galleryPanelStyles}>
           <Gallery expandSidePanel={this.expandSidePanel}
             defaultExpandBio={this.state.expandAllBio} />
-        </div>
-        <div className="Toast Panel" style={toastPanelStyles}>
-          <h1>display some bullshit here</h1>
         </div>
       </div>
     );

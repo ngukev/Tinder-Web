@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import '../css/app.css';
 import TinderCard from './TinderCard';
 import * as UserHelper from '../helpers/UserHelper';
+import * as TinderConstants from '../constants/TinderConstants';
 
 
 
@@ -16,7 +17,6 @@ class Gallery extends Component {
 
   renderGallery() {
 
-    var LIMIT = 8;
     var myCardList = [];
     var names = "";
     this.props.recommendationList.forEach((user, i) => {
@@ -27,12 +27,13 @@ class Gallery extends Component {
                                   defaultExpandBio={this.props.defaultExpandBio}/>);
     });
     var myCardDeck = [];
-    for (var i = 0; i < LIMIT; i += 4) {
+    for (var i = 0; i < TinderConstants.LIMIT; i += (Math.floor(TinderConstants.LIMIT/2))) {
       myCardDeck.push(<CardDeck key={names + i}>
         {myCardList[i]}
         {myCardList[i + 1]}
         {myCardList[i + 2]}
         {myCardList[i + 3]}
+        {myCardList[i + 4]}
       </CardDeck>)
       if(i === 0)
       {

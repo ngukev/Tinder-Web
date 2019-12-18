@@ -1,12 +1,13 @@
-import { faArrowCircleRight,faRedo } from '@fortawesome/free-solid-svg-icons';
+import { faArrowCircleRight, faRedo } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import React, { Component } from 'react';
-import { Button, Table } from 'react-bootstrap';
+import { Button, Table, Card } from 'react-bootstrap';
 import SettingsPanel from './SettingsPanel';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import * as TinderActions from '../actions/TinderActions';
+import * as TinderConstants from '../constants/TinderConstants';
 
 class SidePanel extends Component {
 
@@ -14,73 +15,94 @@ class SidePanel extends Component {
         super(props);
         this.state = {};
         this.swipeOrReload = this.swipeOrReload.bind(this);
+        this.showSelectedCards = this.showSelectedCards.bind(this);
     }
-    swipeOrReload()
-    {
-        if(this.props.recommendationList.length <= 8)
-        {
-            this.props.TinderActions.swipeAndReload(this.props.likedList,this.props.originalRecommendationList);
+    showSelectedCards() {
+        return (
+            <Card border="dark" style={{ width: '23rem' }}>
+                <Table variant="light" striped bordered hover>
+                    <thead>
+                        <tr >
+                            <th colSpan="2"><center style={{fontSize:"24px"}}>People You Liked</center></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {this.props.likedList.map((user, i) => {
+                            return (
+                            <tr key = {user.user.name + " row " + i}>
+                                <td>{i + 1}</td>
+                                <td>{user.user.name}</td>
+                            </tr>)
+                        })}
+                    </tbody>
+                </Table>
+            </Card>)
+    }
+    swipeOrReload() {
+        if (this.props.recommendationList.length <= TinderConstants.LIMIT) {
+            this.props.TinderActions.swipeAndReload(this.props.likedList, this.props.originalRecommendationList);
         }
-        else
-        {
+        else {
             this.props.TinderActions.swipeAndNext(this.props.recommendationList);
         }
     }
     render() {
         var label = this.props.defaultExpandBio === false ? "Expand All Bios" : "Minimize All Bios";
         var labelCSS = {
-            fontSize: "24px",
-            color:"white"
-        };
-        var playLabel = this.props.recommendationList.length > 8 ? "Swipe and Next" : "Swipe and Reload";
-        var icon = this.props.recommendationList.length > 8 ? faArrowCircleRight : faRedo;
+            fontSize: "19.4px",
+            color: "white",
+            fontWeight:"bold"
 
-        var totalPages = Math.floor(this.props.originalRecommendationList.length/8);
-        if(this.props.originalRecommendationList.length%8 !== 0)
-        {
+        };
+        var playLabel = this.props.recommendationList.length > TinderConstants.LIMIT ? "Swipe and Next" : "Swipe and Reload";
+        var icon = this.props.recommendationList.length > TinderConstants.LIMIT ? faArrowCircleRight : faRedo;
+
+        var totalPages = Math.floor(this.props.originalRecommendationList.length / TinderConstants.LIMIT);
+        if (this.props.originalRecommendationList.length % TinderConstants.LIMIT !== 0) {
             totalPages += 1;
         }
 
         var currentPage = 1;
-        for(var i = this.props.recommendationList.length; i < this.props.originalRecommendationList.length; i+=8)
-        {
+        for (var i = this.props.recommendationList.length; i < this.props.originalRecommendationList.length; i += TinderConstants.LIMIT) {
             currentPage++;
         }
 
         return (
             <>
-                <Table>
+                <Table variant="dark">
                     <tbody>
                         <tr>
+                            <td></td>
                             <td><Button variant="light" onClick={e => { this.props.expandAllBio(); }}>{label}</Button></td>
-                            <td style={labelCSS}>{ currentPage + "/" + totalPages}</td>
                         </tr>
                         <tr>
-                            <td style={labelCSS}>{playLabel}</td>
+                            <td style={labelCSS}>{playLabel + " " + currentPage + "/" + totalPages}</td>
                             <td><FontAwesomeIcon icon={icon} style={{ fontSize: "40px" }} color="white" onClick={e => this.swipeOrReload()} /></td>
                         </tr>
                     </tbody>
                 </Table>
                 <br></br>
-                
+                {this.showSelectedCards()}
+                <br></br>
                 <SettingsPanel />
             </>);
     }
 }
 
 function mapStateToProps(state) {
-    return { profile: state.TinderReducer.profile,
-             recommendationList: state.TinderReducer.recommendationList,
-            teaserList : state.TinderReducer.teaserList,
-            originalRecommendationList : state.TinderReducer.originalRecommendationList,
-            likedList : state.TinderReducer.likedList };
+    return {
+        profile: state.TinderReducer.profile,
+        recommendationList: state.TinderReducer.recommendationList,
+        teaserList: state.TinderReducer.teaserList,
+        originalRecommendationList: state.TinderReducer.originalRecommendationList,
+        likedList: state.TinderReducer.likedList
+    };
 }
 
-function mapDispatchToProps(dispatch)
-{
-  return{
-    TinderActions : bindActionCreators(TinderActions,dispatch)
-  }
+function mapDispatchToProps(dispatch) {
+    return {
+        TinderActions: bindActionCreators(TinderActions, dispatch)
+    }
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(SidePanel);
