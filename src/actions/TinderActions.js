@@ -116,7 +116,7 @@ export const swipeAndReload = (likedList,recommendationList) =>
             });
             if(dataIsOkay)
             {
-                store.dispatch(fetchRecommendations());
+                dispatch(fetchRecommendations());
             }
         })
     }
