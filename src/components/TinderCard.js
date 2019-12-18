@@ -135,7 +135,7 @@ class TinderCard extends Component {
 
                         <Form>
                             <Card.Footer>
-                                <FontAwesomeIcon icon={faStar} style={{ float: "left", width: "20px" }} color="#21b3bf" onClick={e => { console.log("clicked btich") }} />
+                                <FontAwesomeIcon icon={faStar} style={{ float: "left", width: "20px" }} color="#21b3bf" onClick={e => {}} />
                                 <Form.Group controlId={"formBasicCheckbox " + user.user._id } key={user.user._id + " checkbox"}>
                                     <Form.Check style={{ float: "right"}} size="lg" type="switch" label="Like" onChange = {e => {this.handleBoxChecked(e.target.checked)}} />
                                 </Form.Group>

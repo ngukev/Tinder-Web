@@ -41,6 +41,12 @@ class SidePanel extends Component {
     swipeOrReload() {
         if (this.props.recommendationList.length <= TinderConstants.LIMIT) {
             this.props.TinderActions.swipeAndReload(this.props.likedList, this.props.originalRecommendationList);
+            var message = "";
+            this.props.likedList.forEach(user => {
+                message += user.user.name + ", ";
+            });
+            message = message.substring(0,message.length-2) + ".";
+            this.props.showToast(true,message);
         }
         else {
             this.props.TinderActions.swipeAndNext(this.props.recommendationList);

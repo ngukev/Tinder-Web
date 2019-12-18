@@ -117,7 +117,6 @@ export const swipeAndReload = (likedList,recommendationList) =>
             if(dataIsOkay)
             {
                 TinderAPIService.refreshData().then(response => {
-                    console.log(response);
                     if(response.status === 200)
                     {
                         dispatch({
