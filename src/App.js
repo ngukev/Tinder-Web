@@ -1,6 +1,6 @@
 import 'bootstrap/dist/css/bootstrap.min.css';
-import React,{Component} from 'react';
-import { Navbar } from 'react-bootstrap';
+import React, { Component } from 'react';
+import { Navbar, Toast } from 'react-bootstrap';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import * as TinderActions from './actions/TinderActions';
@@ -13,12 +13,12 @@ class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      sidePanelHeight: "1025px",
+      sidePanelHeight: "auto",
       expandAllBio: false
     };
     this.renderNavBar = this.renderNavBar.bind(this);
     this.expandSidePanel = this.expandSidePanel.bind(this);
-    this.expandAllBio = this.expandAllBio.bind(this); 
+    this.expandAllBio = this.expandAllBio.bind(this);
   }
 
   expandAllBio() {
@@ -38,7 +38,7 @@ class App extends Component {
 
   componentDidUpdate(prevProps, prevState) {
     if (document.getElementsByClassName("Gallery") != null) {
-      var height = document.getElementsByClassName("Gallery")[0].offsetHeight < 1025 ? "1025" : document.getElementsByClassName("Gallery")[0].offsetHeight;
+      var height = document.getElementsByClassName("Gallery")[0].offsetHeight < 1025 ? 1025 : document.getElementsByClassName("Gallery")[0].offsetHeight;
       height = height.toString(10) + "px";
       if (height !== this.state.sidePanelHeight) {
         this.setState({ sidePanelHeight: height })
@@ -69,23 +69,31 @@ class App extends Component {
     };
 
     var galleryPanelStyles = {
-      width: "80%",
-      float: "right",
-      paddingLeft: "100px"
+      width: "61%",
+      float: "left",
+      paddingLeft: "30px"
     }
 
+    var toastPanelStyles = {
+      width: "19%",
+      float: "left"
+    }
 
     return (
+
       <div className="Main App">
         {this.renderNavBar()}
         <div className="Side Panel" style={sidePanelStyles}>
-          <SidePanel expandAllBio = {this.expandAllBio}
-                     defaultExpandBio = {this.state.expandAllBio}
-                     incrimentCounter = {this.incrimentCounter} />
+          <SidePanel expandAllBio={this.expandAllBio}
+            defaultExpandBio={this.state.expandAllBio}
+            incrimentCounter={this.incrimentCounter} />
         </div>
         <div className="Gallery" style={galleryPanelStyles}>
-          <Gallery  expandSidePanel={this.expandSidePanel}
-                   defaultExpandBio={this.state.expandAllBio} />
+          <Gallery expandSidePanel={this.expandSidePanel}
+            defaultExpandBio={this.state.expandAllBio} />
+        </div>
+        <div className="Toast Panel" style={toastPanelStyles}>
+          <h1>display some bullshit here</h1>
         </div>
       </div>
     );
@@ -93,21 +101,19 @@ class App extends Component {
 
 }
 
-function mapStateToProps(state)
-{
+function mapStateToProps(state) {
   return {
-    recommendationList : state.TinderReducer.recommendationList,
-    teaserList : state.TinderReducer.teaserList
+    recommendationList: state.TinderReducer.recommendationList,
+    teaserList: state.TinderReducer.teaserList
   };
 }
 
-function mapDispatchToProps(dispatch)
-{
-  return{
-    TinderActions : bindActionCreators(TinderActions,dispatch)
+function mapDispatchToProps(dispatch) {
+  return {
+    TinderActions: bindActionCreators(TinderActions, dispatch)
   }
 }
 
 
 
- export default connect(mapStateToProps, mapDispatchToProps)(App);
+export default connect(mapStateToProps, mapDispatchToProps)(App);

@@ -3,7 +3,10 @@ import * as ActionConstants from '../constants/ActionConstants';
 var defaultState = {
     recommendationList: [],
     teaserList: [],
-    profile : null
+    profile: null,
+    originalRecommendationList: [],
+    likedList: [],
+    superLikedUser: null
 }
 
 export default (state = defaultState, action) => {
@@ -11,7 +14,8 @@ export default (state = defaultState, action) => {
         case ActionConstants.FETCH_RECOMMENDATIONS:
             return {
                 ...state,
-                recommendationList: action.payload
+                recommendationList: action.payload,
+                originalRecommendationList: action.payload
             }
         case ActionConstants.FETCH_TEASERS:
             return {
@@ -19,7 +23,7 @@ export default (state = defaultState, action) => {
                 teaserList: action.payload
             }
         case ActionConstants.FETCH_PROFILE:
-            return{
+            return {
                 ...state,
                 profile: action.payload
             }
@@ -27,6 +31,27 @@ export default (state = defaultState, action) => {
             return {
                 ...state,
                 recommendationList: action.payload
+            }
+        case ActionConstants.ADD_TO_LIKED_LIST:
+            return {
+                ...state,
+                likedList: state.likedList.concat([action.payload])
+            }
+        case ActionConstants.REMOVE_FROM_LIKED_LIST:
+            return {
+                ...state,
+                likedList: action.payload
+            }
+        case ActionConstants.SWIPE_AND_RELOAD:
+            console.log("MY ACTION: ",action);
+            return {
+                ...state,
+                recommendationList: action.payload.recommendationList,
+                teaserList: action.payload.teaserList,
+                profile: action.payload.profileData,
+                originalRecommendationList: action.payload.recommendationList,
+                likedList: [],
+                superLikedUser: null
             }
         default:
             return state

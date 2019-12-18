@@ -27,7 +27,6 @@ class SettingsPanel extends Component {
             return <div className="Settings Panel">
                 <Card border="dark" style={{ width: '23rem' }}>
                     <Card.Header >
-                        <FontAwesomeIcon icon={faTools} />
                         <h1 style={stylesCSS}>Preferences</h1>
                     </Card.Header>
                     <Card.Body>

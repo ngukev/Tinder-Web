@@ -18,7 +18,9 @@ class Gallery extends Component {
 
     var LIMIT = 8;
     var myCardList = [];
+    var names = "";
     this.props.recommendationList.forEach((user, i) => {
+      names += user.user.name + " ";
       myCardList.push(<TinderCard user={user} 
                                   userFound={UserHelper.findUserInTeaserList(user,this.props.teaserList)} 
                                   expandSidePanel={this.props.expandSidePanel} 
@@ -26,7 +28,7 @@ class Gallery extends Component {
     });
     var myCardDeck = [];
     for (var i = 0; i < LIMIT; i += 4) {
-      myCardDeck.push(<CardDeck key={i}>
+      myCardDeck.push(<CardDeck key={names + i}>
         {myCardList[i]}
         {myCardList[i + 1]}
         {myCardList[i + 2]}

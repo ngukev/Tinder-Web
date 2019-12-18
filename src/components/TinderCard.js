@@ -1,9 +1,12 @@
 import { faStar } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import moment from 'moment';
 import React, { Component } from 'react';
 import { Button, Card, Form } from 'react-bootstrap';
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
+import * as TinderActions from '../actions/TinderActions';
 import '../css/app.css';
-import moment from 'moment';
 
 class TinderCard extends Component {
     constructor(props) {
@@ -16,8 +19,21 @@ class TinderCard extends Component {
         this.showBio = this.showBio.bind(this);
         this.determineToShowBio = this.determineToShowBio.bind(this);
         this.generateTinderBio = this.generateTinderBio.bind(this);
+        this.handleBoxChecked = this.handleBoxChecked.bind(this);
     }
 
+    handleBoxChecked(checked)
+    {
+        if(checked)
+        {
+            this.props.TinderActions.addToLikedList(this.props.user);
+        }
+        else
+        {
+            this.props.TinderActions.removeFromLikedList(this.props.user,this.props.likedList);
+
+        }
+    }
     changePhotos() {
         if (this.state.counter === this.props.user.user.photos.length - 1) {
             this.setState({ counter: 0 })
@@ -98,17 +114,22 @@ class TinderCard extends Component {
 
         var buttonLabel = this.state.showBio === true ? "Minimize Bio" : "Expand Bio";
 
+        var steveBuscemiUrl = "https://cdn2.lamag.com/wp-content/uploads/sites/6/2012/12/buscemipicfull.jpg";
+
+        console.log(user.user.name, currentCounter, user.user.photos.length);
+        var imageUrl = user.user.photos[currentCounter] !== null ? user.user.photos[currentCounter].url : steveBuscemiUrl;
+
         this.generateTinderBio();
 
         return (
             <div className="TinderCard">
-                <Card bg={backgroundColor} border="dark" style={{ width: '19rem' }} key={user.user._id}>
+                <Card bg={backgroundColor} border="dark" style={{ width: '16rem' }} key={user.user._id}>
                     <Card.Header style={{
                         textAlign: "center",
                         fontWeight: "bold",
                         fontSize: "19px"
                     }}>{headerLabel}</Card.Header>
-                    <Card.Img variant="top" src={user.user.photos[currentCounter].url} style={cardImageStyles} onClick={e => this.changePhotos()} />
+                    <Card.Img variant="top" src={imageUrl} style={cardImageStyles} onClick={e => this.changePhotos()} />
                     <Card.Body>
                         <Card.Title><Button variant={buttonColor} block onClick={e => { this.showBio() }}>{buttonLabel}</Button></Card.Title>
                         <Card.Text>
@@ -119,7 +140,7 @@ class TinderCard extends Component {
                             <Card.Footer>
                                 <FontAwesomeIcon icon={faStar} style={{ float: "left", width: "20px" }} color="#21b3bf" onClick={e => { console.log("clicked btich") }} />
                                 <Form.Group controlId="formBasicCheckbox" key={user.user._id + " checkbox"}>
-                                    <Form.Check style={{ float: "right" }} type="checkbox" label="Like" />
+                                    <Form.Check style={{ float: "right" }} type="checkbox" label="Like" onChange = {e => {this.handleBoxChecked(e.target.checked)}} />
                                 </Form.Group>
                             </Card.Footer>
                         </Form>
@@ -136,4 +157,18 @@ function calculateAge(birthdayString) {
     return moment(formattedBirthdayString, "YYYY-MM-DD").fromNow().split(" ")[0];
 }
 
-export default TinderCard;
+function mapStateToProps(state) {
+    return {
+        likedList : state.TinderReducer.likedList
+    };
+}
+
+function mapDispatchToProps(dispatch)
+{
+  return{
+    TinderActions : bindActionCreators(TinderActions,dispatch)
+  }
+}
+
+
+export default connect(mapStateToProps, mapDispatchToProps)(TinderCard);
