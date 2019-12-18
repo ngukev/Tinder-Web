@@ -30,37 +30,29 @@ class SettingsPanel extends Component {
                         <h1 style={stylesCSS}>Preferences</h1>
                     </Card.Header>
                     <Card.Body>
-                        {profile.user.bio}
+                        {profile.bio}
                         <br></br><br></br>
                         <Table striped bordered size="sm">
                             <tbody>
                                 <tr>
-                                    <td>Likes Remaining</td>
-                                    <td>{profile.likes.likes_remaining}</td>
-                                </tr>
-                                <tr>
-                                    <td>Super Likes</td>
-                                    <td>{profile.super_likes.remaining}</td>
-                                </tr>
-                                <tr>
                                     <td>Age Range</td>
-                                    <td>{profile.user.age_filter_min + "-" + profile.user.age_filter_max}</td>
+                                    <td>{profile.age_filter_min + "-" + profile.age_filter_max}</td>
                                 </tr>
                                 <tr>
                                     <td>Distance Filter</td>
-                                    <td>{profile.user.distance_filter}</td>
+                                    <td>{profile.distance_filter}</td>
                                 </tr>
                                 <tr>
                                     <td>School</td>
-                                    <td>{profile.user.schools.length > 0 ? profile.user.schools[0].name : null}</td>
+                                    <td>{profile.schools.length > 0 ? profile.schools[0].name : null}</td>
                                 </tr>
                                 <tr>
                                     <td>Company</td>
-                                    <td>{profile.user.jobs.length > 0 ? profile.user.jobs[0].company.name : null}</td>
+                                    <td>{profile.jobs.length > 0 ? profile.jobs[0].company.name : null}</td>
                                 </tr>
                                 <tr>
                                     <td>Occupation</td>
-                                    <td>{profile.user.jobs.length > 0 ? profile.user.jobs[0].title.name : null}</td>
+                                    <td>{profile.jobs.length > 0 ? profile.jobs[0].title.name : null}</td>
                                 </tr>
                             </tbody>
                         </Table>

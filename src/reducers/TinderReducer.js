@@ -43,12 +43,10 @@ export default (state = defaultState, action) => {
                 likedList: action.payload
             }
         case ActionConstants.SWIPE_AND_RELOAD:
-            console.log("MY ACTION: ",action);
             return {
-                ...state,
                 recommendationList: action.payload.recommendationList,
                 teaserList: action.payload.teaserList,
-                profile: action.payload.profileData,
+                profile: action.payload.profile,
                 originalRecommendationList: action.payload.recommendationList,
                 likedList: [],
                 superLikedUser: null

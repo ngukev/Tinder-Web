@@ -34,7 +34,7 @@ export const fetchProfile = () => {
     return dispatch => {
         TinderAPIService.fetchProfile().then(response => {
             if (response != null) {
-                var data = response.data.data;
+                var data = response.data;
                 dispatch({
                     type: ActionConstants.FETCH_PROFILE,
                     payload: data
@@ -116,7 +116,16 @@ export const swipeAndReload = (likedList,recommendationList) =>
             });
             if(dataIsOkay)
             {
-                dispatch(fetchRecommendations());
+                TinderAPIService.refreshData().then(response => {
+                    console.log(response);
+                    if(response.status === 200)
+                    {
+                        dispatch({
+                            type : ActionConstants.SWIPE_AND_RELOAD,
+                            payload : response.data
+                        })
+                    }
+                })
             }
         })
     }

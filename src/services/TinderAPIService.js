@@ -22,27 +22,7 @@ export const swipes = (dataList) => {
 }
 
 export const refreshData = () => {
-    var finalData = {};
-    fetchRecommendations().then(recommendationResponse => {
-        var recommendationList = [];
-        if (recommendationResponse.status === 200) {
-            recommendationList = recommendationResponse.data.data.results;
-        }
-        finalData.recommendationList = recommendationList;
-        fetchTeasers().then(teaserResponse => {
-            var teaserList = [];
-            if (teaserResponse.status === 200) {
-                teaserList = teaserResponse.data.data.results;
-            }
-            finalData.teaserList = teaserList;
-            fetchProfile().then(profileResponse => {
-                var profileData = null;
-                if (profileResponse.status === 200) {
-                    var profileData = profileResponse.data;
-                }
-                finalData.profileData = profileData;
-            })
-        })
-    })
-    return finalData;
+    var refreshUrl = TinderConstants.BASE_URL + TinderConstants.REFRESH;
+    return axios.get(refreshUrl);
 }
+
