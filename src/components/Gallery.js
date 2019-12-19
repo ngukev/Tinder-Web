@@ -33,7 +33,6 @@ class Gallery extends Component {
         {myCardList[i + 1]}
         {myCardList[i + 2]}
         {myCardList[i + 3]}
-        {myCardList[i + 4]}
       </CardDeck>)
       if(i === 0)
       {

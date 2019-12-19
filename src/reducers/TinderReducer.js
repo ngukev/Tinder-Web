@@ -27,10 +27,11 @@ export default (state = defaultState, action) => {
                 ...state,
                 profile: action.payload
             }
-        case ActionConstants.SWIPE_AND_NEXT:
+        case ActionConstants.SWIPE:
             return {
                 ...state,
-                recommendationList: action.payload
+                recommendationList: action.payload,
+                likedList : []
             }
         case ActionConstants.ADD_TO_LIKED_LIST:
             return {

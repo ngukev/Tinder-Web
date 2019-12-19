@@ -4,4 +4,9 @@ export const FETCH_PROFILE = "FETCH_PROFILE";
 export const SWIPE_AND_NEXT = "SWIPE_AND_NEXT";
 export const ADD_TO_LIKED_LIST = "ADD_TO_LIKED_LIST";
 export const REMOVE_FROM_LIKED_LIST = "REMOVE_FROM_LIKED_LIST";
+export const SWIPE = "SWIPE";
 export const SWIPE_AND_RELOAD = "SWIPE_AND_RELOAD";
+
+// loading modal stuff
+export const ADD_TO_DISPENSER = "ADD_TO_DISPENSER";
+export const DELETE_FROM_DISPENSER = "DELETE_FROM_DISPENSER";

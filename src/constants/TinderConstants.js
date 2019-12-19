@@ -6,4 +6,4 @@ export const SWIPES = "swipes";
 export const REFRESH = "refresh";
 
 // panel constants
-export const LIMIT = 10;
+export const LIMIT = 8;

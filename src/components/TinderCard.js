@@ -22,15 +22,12 @@ class TinderCard extends Component {
         this.handleBoxChecked = this.handleBoxChecked.bind(this);
     }
 
-    handleBoxChecked(checked)
-    {
-        if(checked)
-        {
+    handleBoxChecked(checked) {
+        if (checked) {
             this.props.TinderActions.addToLikedList(this.props.user);
         }
-        else
-        {
-            this.props.TinderActions.removeFromLikedList(this.props.user,this.props.likedList);
+        else {
+            this.props.TinderActions.removeFromLikedList(this.props.user, this.props.likedList);
 
         }
     }
@@ -120,24 +117,18 @@ class TinderCard extends Component {
 
         return (
             <div className="TinderCard">
-                <Card bg={backgroundColor} border="dark" style={{ width: '16rem' }} key={user.user._id}>
-                    <Card.Header style={{
-                        textAlign: "center",
-                        fontWeight: "bold",
-                        fontSize: "19px"
-                    }}>{headerLabel}</Card.Header>
+                <Card bg={backgroundColor} border="dark" style={{ width: '18rem' }} key={user.user._id}>
                     <Card.Img variant="top" src={imageUrl} style={cardImageStyles} onClick={e => this.changePhotos()} />
                     <Card.Body>
-                        <Card.Title><Button variant={buttonColor} block onClick={e => { this.showBio() }}>{buttonLabel}</Button></Card.Title>
+                        <Button variant={buttonColor} size="lg" block onClick={e => { this.showBio() }}>{headerLabel}</Button>
                         <Card.Text>
                             {this.state.showBio === true || this.props.defaultExpandBio === true ? this.generateTinderBio() : null}
                         </Card.Text>
-
                         <Form>
                             <Card.Footer>
-                                <FontAwesomeIcon icon={faStar} style={{ float: "left", width: "20px" }} color="#21b3bf" onClick={e => {}} />
-                                <Form.Group controlId={"formBasicCheckbox " + user.user._id } key={user.user._id + " checkbox"}>
-                                    <Form.Check style={{ float: "right"}} size="lg" type="switch" label="Like" onChange = {e => {this.handleBoxChecked(e.target.checked)}} />
+                                <FontAwesomeIcon icon={faStar} style={{ float: "left", width: "20px" }} color="#21b3bf" onClick={e => { }} />
+                                <Form.Group controlId={"formBasicCheckbox " + user.user._id} key={user.user._id + " checkbox"}>
+                                    <Form.Check style={{ float: "right" }} size="lg" type="switch" label="Like" onChange={e => { this.handleBoxChecked(e.target.checked) }} />
                                 </Form.Group>
                             </Card.Footer>
                         </Form>
@@ -156,15 +147,14 @@ function calculateAge(birthdayString) {
 
 function mapStateToProps(state) {
     return {
-        likedList : state.TinderReducer.likedList
+        likedList: state.TinderReducer.likedList
     };
 }
 
-function mapDispatchToProps(dispatch)
-{
-  return{
-    TinderActions : bindActionCreators(TinderActions,dispatch)
-  }
+function mapDispatchToProps(dispatch) {
+    return {
+        TinderActions: bindActionCreators(TinderActions, dispatch)
+    }
 }
 
 

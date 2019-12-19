@@ -5,6 +5,7 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import * as TinderActions from './actions/TinderActions';
 import Gallery from './components/Gallery';
+import LoadingModal from './components/LoadingModal';
 import SidePanel from './components/SidePanel';
 import './css/app.css';
 
@@ -51,7 +52,7 @@ class App extends Component {
 
       return (
         <div className="Toast Panel" style={toastCss}>
-          <Toast onClose={() => this.showToast(false)} show={this.state.showToast} delay={3000} autohide>
+          <Toast onClose={() => this.showToast(false)} show={this.state.showToast} delay={3000} autohide animation={true}>
             <Toast.Header>
               <img src="holder.js/20x20?text=%20" className="rounded mr-2" alt="" />
               <strong className="mr-auto">Tinder 2.0</strong>
@@ -84,7 +85,6 @@ class App extends Component {
       <div className="Nav Bar">
         <Navbar bg="danger" variant="dark" style={{}}>
           <Navbar.Brand href="#home">
-
             <span role="img" aria-label="fire">🔥</span>
           </Navbar.Brand>
           <Navbar.Brand href="#home">
@@ -105,12 +105,13 @@ class App extends Component {
     var galleryPanelStyles = {
       width: "80%",
       float: "left",
-      paddingLeft: "30px"
+      paddingLeft: "150px"
     }
 
     return (
 
       <div className="Main App" >
+        <LoadingModal></LoadingModal>
         {this.renderNavBar()}
         <div className="Side Panel" style={sidePanelStyles}>
           <SidePanel expandAllBio={this.expandAllBio}

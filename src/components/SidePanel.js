@@ -23,16 +23,16 @@ class SidePanel extends Component {
                 <Table variant="light" striped bordered hover>
                     <thead>
                         <tr >
-                            <th colSpan="2"><center style={{fontSize:"24px"}}>People You Liked</center></th>
+                            <th colSpan="2"><center style={{ fontSize: "24px" }}>People You Liked</center></th>
                         </tr>
                     </thead>
                     <tbody>
                         {this.props.likedList.map((user, i) => {
                             return (
-                            <tr key = {user.user.name + " row " + i}>
-                                <td>{i + 1}</td>
-                                <td>{user.user.name}</td>
-                            </tr>)
+                                <tr key={user.user.name + " row " + i}>
+                                    <td>{i + 1}</td>
+                                    <td>{user.user.name}</td>
+                                </tr>)
                         })}
                     </tbody>
                 </Table>
@@ -41,23 +41,23 @@ class SidePanel extends Component {
     swipeOrReload() {
         if (this.props.recommendationList.length <= TinderConstants.LIMIT) {
             this.props.TinderActions.swipeAndReload(this.props.likedList, this.props.originalRecommendationList);
-            var message = "";
-            this.props.likedList.forEach(user => {
-                message += user.user.name + ", ";
-            });
-            message = message.substring(0,message.length-2) + ".";
-            this.props.showToast(true,message);
         }
         else {
-            this.props.TinderActions.swipeAndNext(this.props.recommendationList);
+            this.props.TinderActions.swipeAndNext(this.props.likedList, this.props.recommendationList);
         }
+        var message = "";
+        this.props.likedList.forEach(user => {
+            message += user.user.name + ", ";
+        });
+        message = message.substring(0, message.length - 2) + ".";
+        this.props.showToast(true, message);
     }
     render() {
         var label = this.props.defaultExpandBio === false ? "Expand All Bios" : "Minimize All Bios";
         var labelCSS = {
             fontSize: "19.4px",
             color: "white",
-            fontWeight:"bold"
+            fontWeight: "bold"
 
         };
         var playLabel = this.props.recommendationList.length > TinderConstants.LIMIT ? "Swipe and Next" : "Swipe and Reload";
