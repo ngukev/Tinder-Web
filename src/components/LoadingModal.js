@@ -26,7 +26,7 @@ class LoadingModal extends Component {
                     <tbody>
                         {this.props.likedList.map((user, i) => {
                             return (<tr>
-                                <td><img src={user.user.photos[0].url} style={{width:"50px", height:"50px"}}/></td>
+                                <td><img src={user.user.photos[0].url} alt="" style={{width:"50px", height:"50px"}}/></td>
                                 <td>{user.user.name}</td>
                             </tr>)
                         })}
