@@ -1,6 +1,6 @@
 import 'bootstrap/dist/css/bootstrap.min.css';
 import React, { Component } from 'react';
-import { Navbar, Toast } from 'react-bootstrap';
+import { Navbar } from 'react-bootstrap';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import * as TinderActions from './actions/TinderActions';
@@ -16,19 +16,13 @@ class App extends Component {
     this.state = {
       sidePanelHeight: "auto",
       expandAllBio: false,
-      showToast: false,
       message: ""
     };
     this.renderNavBar = this.renderNavBar.bind(this);
     this.expandSidePanel = this.expandSidePanel.bind(this);
     this.expandAllBio = this.expandAllBio.bind(this);
-    this.showToast = this.showToast.bind(this);
-    this.renderToast = this.renderToast.bind(this);
   }
 
-  showToast(value, message = "") {
-    this.setState({ showToast: value, message: message })
-  }
   expandAllBio() {
     this.setState({ expandAllBio: !this.state.expandAllBio })
   }
@@ -38,33 +32,6 @@ class App extends Component {
     this.setState({ sidePanelHeight: height })
   }
 
-  renderToast() {
-    var toastCss = {
-      position: "absolute",
-      top: 0,
-      right: 0
-    };
-    if (this.state.showToast === true) {
-      var message = this.state.message === "." ? "You passed on everyone!" : this.state.message;
-      if (message !== "You passed on everyone!") {
-        message = "You liked: " + message;
-      }
-
-      return (
-        <div className="Toast Panel" style={toastCss}>
-          <Toast onClose={() => this.showToast(false)} show={this.state.showToast} delay={3000} autohide animation={true}>
-            <Toast.Header>
-              <img src="holder.js/20x20?text=%20" className="rounded mr-2" alt="" />
-              <strong className="mr-auto">Tinder 2.0</strong>
-              <small>Now</small>
-            </Toast.Header>
-            <Toast.Body>{message}</Toast.Body>
-          </Toast>
-        </div>
-      )
-    }
-    return null;
-  }
   componentDidMount() {
     this.props.TinderActions.fetchRecommendations();
     this.props.TinderActions.fetchTeasers();
@@ -116,10 +83,8 @@ class App extends Component {
         <div className="Side Panel" style={sidePanelStyles}>
           <SidePanel expandAllBio={this.expandAllBio}
             defaultExpandBio={this.state.expandAllBio}
-            incrimentCounter={this.incrimentCounter}
-            showToast={this.showToast} />
+            incrimentCounter={this.incrimentCounter}/>
         </div>
-        {this.renderToast()}
         <div className="Gallery" style={galleryPanelStyles}>
           <Gallery expandSidePanel={this.expandSidePanel}
             defaultExpandBio={this.state.expandAllBio} />

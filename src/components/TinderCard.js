@@ -109,8 +109,6 @@ class TinderCard extends Component {
 
         var headerLabel = user.user.name + ", " + calculateAge(user.user.birth_date) + " " + counterLabel;
 
-        var buttonLabel = this.state.showBio === true ? "Minimize Bio" : "Expand Bio";
-
         var imageUrl = user.user.photos[currentCounter].url;
 
         this.generateTinderBio();

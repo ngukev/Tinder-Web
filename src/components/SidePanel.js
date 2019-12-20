@@ -23,14 +23,14 @@ class SidePanel extends Component {
                 <Table variant="light" striped bordered hover>
                     <thead>
                         <tr >
-                            <th colSpan="2"><center style={{ fontSize: "24px" }}>People You Liked</center></th>
+                            <th colSpan="2" style={{ fontSize: "24px" }}>People You Liked</th>
                         </tr>
                     </thead>
                     <tbody>
                         {this.props.likedList.map((user, i) => {
                             return (
                                 <tr key={user.user.name + " row " + i}>
-                                    <td>{i + 1}</td>
+                                    <td><img src={user.user.photos[0].url} style={{width:"50px", height:"50px"}}/></td>
                                     <td>{user.user.name}</td>
                                 </tr>)
                         })}
@@ -45,12 +45,6 @@ class SidePanel extends Component {
         else {
             this.props.TinderActions.swipeAndNext(this.props.likedList, this.props.recommendationList);
         }
-        var message = "";
-        this.props.likedList.forEach(user => {
-            message += user.user.name + ", ";
-        });
-        message = message.substring(0, message.length - 2) + ".";
-        this.props.showToast(true, message);
     }
     render() {
         var label = this.props.defaultExpandBio === false ? "Expand All Bios" : "Minimize All Bios";

@@ -43,6 +43,10 @@ class SettingsPanel extends Component {
                                     <td>Occupation</td>
                                     <td>{profile.jobs.length > 0 ? profile.jobs[0].title.name : null}</td>
                                 </tr>
+                                <tr>
+                                    <td>Location</td>
+                                    <td>{profile.pos_info.city.name}</td>
+                                </tr>
                             </tbody>
                         </Table>
                         <Card.Footer>
