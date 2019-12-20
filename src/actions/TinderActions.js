@@ -106,10 +106,13 @@ export const removeFromLikedList = (user, likedList) => {
 
 function getSwipeDataList(likedList, recommendationList) {
     var mySwipeDataList = [];
-    recommendationList.forEach(user => {
+    var size = recommendationList.length > 8 ? 8 : recommendationList.length;
+    for(var i = 0; i < size; i++)
+    {
         var found = false;
-        for (var i = 0; i < likedList.length; i++) {
-            if (user.user._id === likedList[i].user._id) {
+        var user = recommendationList[i];
+        for (var j = 0; j < likedList.length; j++) {
+            if (user.user._id === likedList[j].user._id) {
                 found = true;
                 break;
             }
@@ -121,7 +124,7 @@ function getSwipeDataList(likedList, recommendationList) {
         }
 
         mySwipeDataList.push(mySwipeData);
-    });
+    }
     return mySwipeDataList;
 }
 
