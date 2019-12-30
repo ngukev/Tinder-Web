@@ -167,3 +167,7 @@ export const swipeAndReload = (likedList, recommendationList) => {
         })
     }
 }
+
+export const loginUser = (requestBody) => {
+
+}

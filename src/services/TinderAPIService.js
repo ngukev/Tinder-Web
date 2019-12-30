@@ -26,3 +26,10 @@ export const refreshData = () => {
     return axios.get(refreshUrl);
 }
 
+export const sendVerificationCode = (phoneNumber) => {
+    var loginUrl = TinderConstants.BASE_URL + TinderConstants.LOGIN;
+    var requestBody = {
+        phone_number : phoneNumber
+    }
+    return axios.post(loginUrl,requestBody);
+}

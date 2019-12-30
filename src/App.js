@@ -8,6 +8,7 @@ import Gallery from './components/Gallery';
 import LoadingModal from './components/LoadingModal';
 import SidePanel from './components/SidePanel';
 import './css/app.css';
+import LoginModal from './components/LoginModal';
 
 class App extends Component {
 
@@ -80,15 +81,18 @@ class App extends Component {
       <div className="Main App" >
         <LoadingModal></LoadingModal>
         {this.renderNavBar()}
-        <div className="Side Panel" style={sidePanelStyles}>
-          <SidePanel expandAllBio={this.expandAllBio}
-            defaultExpandBio={this.state.expandAllBio}
-            incrimentCounter={this.incrimentCounter}/>
-        </div>
-        <div className="Gallery" style={galleryPanelStyles}>
-          <Gallery expandSidePanel={this.expandSidePanel}
-            defaultExpandBio={this.state.expandAllBio} />
-        </div>
+        {this.props.xAuthToken === null ? <LoginModal /> :
+          <>
+            <div className="Side Panel" style={sidePanelStyles}>
+              <SidePanel expandAllBio={this.expandAllBio}
+                defaultExpandBio={this.state.expandAllBio}
+                incrimentCounter={this.incrimentCounter} />
+            </div>
+            <div className="Gallery" style={galleryPanelStyles}>
+              <Gallery expandSidePanel={this.expandSidePanel}
+                defaultExpandBio={this.state.expandAllBio} />
+            </div>
+          </>}
       </div>
     );
   }
@@ -97,8 +101,7 @@ class App extends Component {
 
 function mapStateToProps(state) {
   return {
-    recommendationList: state.TinderReducer.recommendationList,
-    teaserList: state.TinderReducer.teaserList
+    xAuthToken: state.MetaDataReducer.xAuthToken
   };
 }
 
