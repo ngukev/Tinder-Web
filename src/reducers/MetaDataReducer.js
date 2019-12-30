@@ -7,6 +7,11 @@ var defaultState = {
 
 export default (state = defaultState, action) => {
     switch (action.type) {
+        case ActionConstants.GET_AUTH_TOKEN:
+            return {
+                ...state,
+                xAuthToken : action.payload
+            }
         default:
             return state
     }

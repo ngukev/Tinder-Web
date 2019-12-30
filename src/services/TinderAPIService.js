@@ -33,3 +33,8 @@ export const sendVerificationCode = (phoneNumber) => {
     }
     return axios.post(loginUrl,requestBody);
 }
+
+export const getAuthToken = (requestBody) => {
+    var validateUrl = TinderConstants.BASE_URL + TinderConstants.VALIDATE;
+    return axios.post(validateUrl,requestBody);
+}

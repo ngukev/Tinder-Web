@@ -5,7 +5,7 @@ export const PROFILE = "profile";
 export const SWIPES = "swipes";
 export const REFRESH = "refresh";
 export const LOGIN = "login";
-export const GET_SMS_TOKEN = "get-sms-token";
+export const VALIDATE = "validate";
 
 // panel constants
 export const LIMIT = 8;

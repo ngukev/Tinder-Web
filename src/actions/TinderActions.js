@@ -168,6 +168,18 @@ export const swipeAndReload = (likedList, recommendationList) => {
     }
 }
 
-export const loginUser = (requestBody) => {
-
+export const getAuthToken = (requestBody) => {
+    return dispatch => {
+        TinderAPIService.getAuthToken(requestBody).then(response => {
+            console.log("MY RESPONSE: ",response);
+            if(response.data.meta.status === 200)
+            {
+                var apiToken = response.data.data.api_token;
+                dispatch({
+                    type : ActionConstants.GET_AUTH_TOKEN,
+                    payload: apiToken
+                })
+            }
+        })
+    }
 }
