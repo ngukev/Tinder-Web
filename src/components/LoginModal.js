@@ -29,7 +29,7 @@ class LoginModal extends Component {
                         <Form.Label>Phone Number</Form.Label>
                         <Form.Control placeholder="1 123 456 7890" onBlur={
                             e => {
-                                var formattedPhoneNumber = e.target.value.replace(" ", "");
+                                var formattedPhoneNumber = e.target.value.replace(/\s/g,"");
                                 this.setState({ phoneNumber: formattedPhoneNumber })
                                 TinderAPIService.sendVerificationCode(formattedPhoneNumber);
                             }
