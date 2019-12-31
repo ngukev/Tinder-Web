@@ -35,10 +35,10 @@ class SettingsPanel extends Component {
                                     <td>School</td>
                                     <td>{profile.schools.length > 0 ? profile.schools[0].name : null}</td>
                                 </tr>
-                                <tr>
+                                {/* <tr>
                                     <td>Company</td>
                                     <td>{profile.jobs.length > 0 ? profile.jobs[0].company.name : null}</td>
-                                </tr>
+                                </tr> */}
                                 <tr>
                                     <td>Occupation</td>
                                     <td>{profile.jobs.length > 0 ? profile.jobs[0].title.name : null}</td>

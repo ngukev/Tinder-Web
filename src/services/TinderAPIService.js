@@ -4,53 +4,64 @@ import * as TinderConstants from '../constants/TinderConstants';
 
 export const fetchRecommendations = (xAuthToken) => {
     var recommendationsUrl = TinderConstants.BASE_URL + TinderConstants.RECOMMENDATIONS;
-    var header = {
-        "x-auth-token" : xAuthToken
+
+    let config = {
+        headers: {
+            "x-auth-token": xAuthToken,
+        }
     }
-    return axios.get(recommendationsUrl,header);
+    return axios.get(recommendationsUrl, config);
 }
 
 export const fetchTeasers = (xAuthToken) => {
     var teaserURL = TinderConstants.BASE_URL + TinderConstants.TEASER;
-    var header = {
-        "x-auth-token" : xAuthToken
+    let config = {
+        headers: {
+            "x-auth-token": xAuthToken,
+        }
     }
-    return axios.get(teaserURL,header);
+    return axios.get(teaserURL, config);
 }
 
 export const fetchProfile = (xAuthToken) => {
     var profileURL = TinderConstants.BASE_URL + TinderConstants.PROFILE;
-    var header = {
-        "x-auth-token" : xAuthToken
+    let config = {
+        headers: {
+            "x-auth-token": xAuthToken,
+        }
     }
-    return axios.get(profileURL,header);
+    return axios.get(profileURL, config);
 }
 
-export const swipes = (dataList,xAuthToken) => {
+export const swipes = (dataList, xAuthToken) => {
     var swipesUrl = TinderConstants.BASE_URL + TinderConstants.SWIPES;
-    var header = {
-        "x-auth-token" : xAuthToken
+    let config = {
+        headers: {
+            "x-auth-token": xAuthToken,
+        }
     }
-    return axios.post(swipesUrl, dataList,header);
+    return axios.post(swipesUrl, dataList, config);
 }
 
 export const refreshData = (xAuthToken) => {
     var refreshUrl = TinderConstants.BASE_URL + TinderConstants.REFRESH;
-    var header = {
-        "x-auth-token" : xAuthToken
+    let config = {
+        headers: {
+            "x-auth-token": xAuthToken,
+        }
     }
-    return axios.get(refreshUrl,header);
+    return axios.get(refreshUrl, config);
 }
 
 export const sendVerificationCode = (phoneNumber) => {
     var loginUrl = TinderConstants.BASE_URL + TinderConstants.LOGIN;
     var requestBody = {
-        phone_number : phoneNumber
+        phone_number: phoneNumber
     }
-    return axios.post(loginUrl,requestBody);
+    return axios.post(loginUrl, requestBody);
 }
 
 export const getAuthToken = (requestBody) => {
     var validateUrl = TinderConstants.BASE_URL + TinderConstants.VALIDATE;
-    return axios.post(validateUrl,requestBody);
+    return axios.post(validateUrl, requestBody);
 }
