@@ -174,11 +174,25 @@ export const getAuthToken = (requestBody) => {
             if(response.data.meta.status === 200)
             {
                 var apiToken = response.data.data.api_token;
+                sessionStorage.setItem("x-auth-token",apiToken);
                 dispatch({
                     type : ActionConstants.GET_AUTH_TOKEN,
                     payload: apiToken
                 })
             }
         })
+    }
+}
+
+export const getCachedAuthToken = () => {
+    return dispatch => {
+        var authToken = sessionStorage.getItem("x-auth-token");
+        if(true)
+        {
+            dispatch({
+                type : ActionConstants.GET_CACHE_AUTH_TOKEN,
+                payload: authToken
+            })
+        }
     }
 }

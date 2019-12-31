@@ -12,6 +12,11 @@ export default (state = defaultState, action) => {
                 ...state,
                 xAuthToken : action.payload
             }
+        case ActionConstants.GET_CACHE_AUTH_TOKEN:
+            return{
+                ...state,
+                xAuthToken : action.payload
+            }
         default:
             return state
     }

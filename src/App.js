@@ -6,9 +6,9 @@ import { bindActionCreators } from 'redux';
 import * as TinderActions from './actions/TinderActions';
 import Gallery from './components/Gallery';
 import LoadingModal from './components/LoadingModal';
+import LoginModal from './components/LoginModal';
 import SidePanel from './components/SidePanel';
 import './css/app.css';
-import LoginModal from './components/LoginModal';
 
 class App extends Component {
 
@@ -24,6 +24,10 @@ class App extends Component {
     this.expandAllBio = this.expandAllBio.bind(this);
   }
 
+  componentDidMount()
+  {
+    this.props.TinderActions.getCachedAuthToken();
+  }
   expandAllBio() {
     this.setState({ expandAllBio: !this.state.expandAllBio })
   }
