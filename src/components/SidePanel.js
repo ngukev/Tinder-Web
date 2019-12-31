@@ -40,10 +40,10 @@ class SidePanel extends Component {
     }
     swipeOrReload() {
         if (this.props.recommendationList.length <= TinderConstants.LIMIT) {
-            this.props.TinderActions.swipeAndReload(this.props.likedList, this.props.originalRecommendationList);
+            this.props.TinderActions.swipeAndReload(this.props.likedList, this.props.originalRecommendationList,this.props.xAuthToken);
         }
         else {
-            this.props.TinderActions.swipeAndNext(this.props.likedList, this.props.recommendationList);
+            this.props.TinderActions.swipeAndNext(this.props.likedList, this.props.recommendationList,this.props.xAuthToken);
         }
     }
     render() {
@@ -95,7 +95,8 @@ function mapStateToProps(state) {
         recommendationList: state.TinderReducer.recommendationList,
         teaserList: state.TinderReducer.teaserList,
         originalRecommendationList: state.TinderReducer.originalRecommendationList,
-        likedList: state.TinderReducer.likedList
+        likedList: state.TinderReducer.likedList,
+        xAuthToken: state.MetaDataReducer.xAuthToken
     };
 }
 

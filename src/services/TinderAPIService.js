@@ -1,28 +1,67 @@
 import axios from 'axios';
 import * as TinderConstants from '../constants/TinderConstants';
 
-export const fetchRecommendations = () => {
+
+export const fetchRecommendations = (xAuthToken) => {
     var recommendationsUrl = TinderConstants.BASE_URL + TinderConstants.RECOMMENDATIONS;
-    return axios.get(recommendationsUrl);
+
+    let config = {
+        headers: {
+            "x-auth-token": xAuthToken,
+        }
+    }
+    return axios.get(recommendationsUrl, config);
 }
 
-export const fetchTeasers = () => {
+export const fetchTeasers = (xAuthToken) => {
     var teaserURL = TinderConstants.BASE_URL + TinderConstants.TEASER;
-    return axios.get(teaserURL);
+    let config = {
+        headers: {
+            "x-auth-token": xAuthToken,
+        }
+    }
+    return axios.get(teaserURL, config);
 }
 
-export const fetchProfile = () => {
+export const fetchProfile = (xAuthToken) => {
     var profileURL = TinderConstants.BASE_URL + TinderConstants.PROFILE;
-    return axios.get(profileURL);
+    let config = {
+        headers: {
+            "x-auth-token": xAuthToken,
+        }
+    }
+    return axios.get(profileURL, config);
 }
 
-export const swipes = (dataList) => {
+export const swipes = (dataList, xAuthToken) => {
     var swipesUrl = TinderConstants.BASE_URL + TinderConstants.SWIPES;
-    return axios.post(swipesUrl, dataList);
+    let config = {
+        headers: {
+            "x-auth-token": xAuthToken,
+        }
+    }
+    return axios.post(swipesUrl, dataList, config);
 }
 
-export const refreshData = () => {
+export const refreshData = (xAuthToken) => {
     var refreshUrl = TinderConstants.BASE_URL + TinderConstants.REFRESH;
-    return axios.get(refreshUrl);
+    let config = {
+        headers: {
+            "x-auth-token": xAuthToken,
+        }
+    }
+    return axios.get(refreshUrl, config);
 }
 
+export const sendVerificationCode = (phoneNumber) => {
+    var loginUrl = TinderConstants.BASE_URL + TinderConstants.LOGIN;
+    var requestBody = {
+        phone_number: phoneNumber
+    }
+    return axios.post(loginUrl, requestBody);
+}
+
+export const getAuthToken = (requestBody) => {
+    var validateUrl = TinderConstants.BASE_URL + TinderConstants.VALIDATE;
+    return axios.post(validateUrl, requestBody);
+}

@@ -24,10 +24,10 @@ class TinderCard extends Component {
 
     handleBoxChecked(checked) {
         if (checked) {
-            this.props.TinderActions.addToLikedList(this.props.user);
+            this.props.TinderActions.addToLikedList(this.props.user,this.props.xAuthToken);
         }
         else {
-            this.props.TinderActions.removeFromLikedList(this.props.user, this.props.likedList);
+            this.props.TinderActions.removeFromLikedList(this.props.user, this.props.likedList,this.props.xAuthToken);
 
         }
     }
@@ -145,7 +145,8 @@ function calculateAge(birthdayString) {
 
 function mapStateToProps(state) {
     return {
-        likedList: state.TinderReducer.likedList
+        likedList: state.TinderReducer.likedList,
+        xAuthToken: state.MetaDataReducer.xAuthToken
     };
 }
 

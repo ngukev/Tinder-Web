@@ -10,3 +10,7 @@ export const SWIPE_AND_RELOAD = "SWIPE_AND_RELOAD";
 // loading modal stuff
 export const ADD_TO_DISPENSER = "ADD_TO_DISPENSER";
 export const DELETE_FROM_DISPENSER = "DELETE_FROM_DISPENSER";
+
+//get auth token
+export const GET_AUTH_TOKEN = "GET_AUTH_TOKEN";
+export const GET_CACHE_AUTH_TOKEN = "GET_CACHE_AUTH_TOKEN";

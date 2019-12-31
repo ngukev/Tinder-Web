@@ -6,6 +6,7 @@ import { bindActionCreators } from 'redux';
 import * as TinderActions from './actions/TinderActions';
 import Gallery from './components/Gallery';
 import LoadingModal from './components/LoadingModal';
+import LoginModal from './components/LoginModal';
 import SidePanel from './components/SidePanel';
 import './css/app.css';
 
@@ -23,6 +24,10 @@ class App extends Component {
     this.expandAllBio = this.expandAllBio.bind(this);
   }
 
+  componentDidMount()
+  {
+    this.props.TinderActions.getCachedAuthToken();
+  }
   expandAllBio() {
     this.setState({ expandAllBio: !this.state.expandAllBio })
   }
@@ -30,12 +35,6 @@ class App extends Component {
     var height = document.getElementsByClassName("Gallery")[0].offsetHeight;
     height = height.toString(10) + "px";
     this.setState({ sidePanelHeight: height })
-  }
-
-  componentDidMount() {
-    this.props.TinderActions.fetchRecommendations();
-    this.props.TinderActions.fetchTeasers();
-    this.props.TinderActions.fetchProfile();
   }
 
   componentDidUpdate(prevProps, prevState) {
@@ -46,6 +45,14 @@ class App extends Component {
         this.setState({ sidePanelHeight: height })
       }
     }
+
+    if(this.props.xAuthToken !== prevProps.xAuthToken)
+    {
+      this.props.TinderActions.fetchRecommendations(this.props.xAuthToken);
+      this.props.TinderActions.fetchTeasers(this.props.xAuthToken);
+      this.props.TinderActions.fetchProfile(this.props.xAuthToken);
+    }
+    
   }
   renderNavBar() {
     return (
@@ -80,15 +87,18 @@ class App extends Component {
       <div className="Main App" >
         <LoadingModal></LoadingModal>
         {this.renderNavBar()}
-        <div className="Side Panel" style={sidePanelStyles}>
-          <SidePanel expandAllBio={this.expandAllBio}
-            defaultExpandBio={this.state.expandAllBio}
-            incrimentCounter={this.incrimentCounter}/>
-        </div>
-        <div className="Gallery" style={galleryPanelStyles}>
-          <Gallery expandSidePanel={this.expandSidePanel}
-            defaultExpandBio={this.state.expandAllBio} />
-        </div>
+        {this.props.xAuthToken === null ? <LoginModal /> :
+          <>
+            <div className="Side Panel" style={sidePanelStyles}>
+              <SidePanel expandAllBio={this.expandAllBio}
+                defaultExpandBio={this.state.expandAllBio}
+                incrimentCounter={this.incrimentCounter} />
+            </div>
+            <div className="Gallery" style={galleryPanelStyles}>
+              <Gallery expandSidePanel={this.expandSidePanel}
+                defaultExpandBio={this.state.expandAllBio} />
+            </div>
+          </>}
       </div>
     );
   }
@@ -97,8 +107,7 @@ class App extends Component {
 
 function mapStateToProps(state) {
   return {
-    recommendationList: state.TinderReducer.recommendationList,
-    teaserList: state.TinderReducer.teaserList
+    xAuthToken: state.MetaDataReducer.xAuthToken
   };
 }
 
