@@ -101,8 +101,9 @@ class TinderCard extends Component {
         var user = this.props.user;
         var currentCounter = this.state.counter;
 
-        var backgroundColor = this.props.userFound === true ? "danger" : "light";
-        var buttonColor = this.props.userFound === true ? "secondary" : "outline-primary";
+        var backgroundColor = (this.props.userFound === true || user.is_super_like === true) ? "danger" : "light";
+        var buttonColor = (this.props.userFound === true || user.is_super_like === true) ? "secondary" : "outline-primary";
+        var textColor = (this.props.userFound === true || user.is_super_like === true) ? "white" : "black";
 
         var counterLabel = this.state.counter + 1;
         counterLabel = " (" + counterLabel.toString(10) + "/" + this.props.user.user.photos.length.toString(10) + ")";
@@ -115,7 +116,7 @@ class TinderCard extends Component {
 
         return (
             <div className="TinderCard">
-                <Card bg={backgroundColor} border="dark" style={{ width: '18rem' }} key={user.user._id}>
+                <Card bg={backgroundColor} border="dark" style={{ width: '18rem' }} key={user.user._id} text={textColor}>
                     <Card.Img variant="top" src={imageUrl} style={cardImageStyles} onClick={e => this.changePhotos()} />
                     <Card.Body>
                         <Button variant={buttonColor} size="lg" block onClick={e => { this.showBio() }}>{headerLabel}</Button>
