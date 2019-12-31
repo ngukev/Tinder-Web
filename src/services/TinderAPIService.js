@@ -1,29 +1,45 @@
 import axios from 'axios';
 import * as TinderConstants from '../constants/TinderConstants';
 
-export const fetchRecommendations = () => {
+
+export const fetchRecommendations = (xAuthToken) => {
     var recommendationsUrl = TinderConstants.BASE_URL + TinderConstants.RECOMMENDATIONS;
-    return axios.get(recommendationsUrl);
+    var header = {
+        "x-auth-token" : xAuthToken
+    }
+    return axios.get(recommendationsUrl,header);
 }
 
-export const fetchTeasers = () => {
+export const fetchTeasers = (xAuthToken) => {
     var teaserURL = TinderConstants.BASE_URL + TinderConstants.TEASER;
-    return axios.get(teaserURL);
+    var header = {
+        "x-auth-token" : xAuthToken
+    }
+    return axios.get(teaserURL,header);
 }
 
-export const fetchProfile = () => {
+export const fetchProfile = (xAuthToken) => {
     var profileURL = TinderConstants.BASE_URL + TinderConstants.PROFILE;
-    return axios.get(profileURL);
+    var header = {
+        "x-auth-token" : xAuthToken
+    }
+    return axios.get(profileURL,header);
 }
 
-export const swipes = (dataList) => {
+export const swipes = (dataList,xAuthToken) => {
     var swipesUrl = TinderConstants.BASE_URL + TinderConstants.SWIPES;
-    return axios.post(swipesUrl, dataList);
+    var header = {
+        "x-auth-token" : xAuthToken
+    }
+    return axios.post(swipesUrl, dataList,header);
 }
 
-export const refreshData = () => {
+export const refreshData = (xAuthToken) => {
     var refreshUrl = TinderConstants.BASE_URL + TinderConstants.REFRESH;
-    return axios.get(refreshUrl);
+    var header = {
+        "x-auth-token" : xAuthToken
+    }
+    return axios.get(refreshUrl,header);
 }
 
 export const sendVerificationCode = (phoneNumber) => {

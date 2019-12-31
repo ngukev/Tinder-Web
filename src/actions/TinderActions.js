@@ -2,10 +2,10 @@ import * as ActionConstants from '../constants/ActionConstants';
 import * as TinderAPIService from '../services/TinderAPIService';
 import * as TinderConstants from '../constants/TinderConstants';
 import moment from 'moment';
-export const fetchRecommendations = () => {
+export const fetchRecommendations = (xAuthToken) => {
     return dispatch => {
 
-        TinderAPIService.fetchRecommendations().then(response => {
+        TinderAPIService.fetchRecommendations(xAuthToken).then(response => {
             if (response != null && response.data.meta.status === 200) {
                 var data = response.data.data.results;
                 dispatch({
@@ -17,9 +17,9 @@ export const fetchRecommendations = () => {
     }
 }
 
-export const fetchTeasers = () => {
+export const fetchTeasers = (xAuthToken) => {
     return dispatch => {
-        TinderAPIService.fetchTeasers().then(response => {
+        TinderAPIService.fetchTeasers(xAuthToken).then(response => {
             if (response != null && response.data.meta.status === 200) {
                 var data = response.data.data.results;
                 dispatch({
@@ -31,9 +31,9 @@ export const fetchTeasers = () => {
     }
 }
 
-export const fetchProfile = () => {
+export const fetchProfile = (xAuthToken) => {
     return dispatch => {
-        TinderAPIService.fetchProfile().then(response => {
+        TinderAPIService.fetchProfile(xAuthToken).then(response => {
             if (response != null) {
                 var data = response.data;
                 dispatch({
@@ -45,7 +45,7 @@ export const fetchProfile = () => {
     }
 }
 
-export const swipeAndNext = (likedList, recommendationList) => {
+export const swipeAndNext = (likedList, recommendationList,xAuthToken) => {
     return dispatch => {
         var momentTimeStamp = moment().unix();
         dispatch({
@@ -60,7 +60,7 @@ export const swipeAndNext = (likedList, recommendationList) => {
             }
         }
         var mySwipeDataList = getSwipeDataList(likedList, recommendationList);
-        TinderAPIService.swipes(mySwipeDataList).then(response => {
+        TinderAPIService.swipes(mySwipeDataList,xAuthToken).then(response => {
             var dataIsOkay = true;
             var data = response.data.responseList;
             data.forEach(responseString => {
@@ -130,7 +130,7 @@ function getSwipeDataList(likedList, recommendationList) {
 
 
 
-export const swipeAndReload = (likedList, recommendationList) => {
+export const swipeAndReload = (likedList, recommendationList,xAuthToken) => {
     return dispatch => {
         var momentTimeStamp = moment().unix();
         dispatch({
@@ -139,7 +139,7 @@ export const swipeAndReload = (likedList, recommendationList) => {
         })
 
         var mySwipeDataList = getSwipeDataList(likedList, recommendationList);
-        TinderAPIService.swipes(mySwipeDataList).then(response => {
+        TinderAPIService.swipes(mySwipeDataList,xAuthToken).then(response => {
             var dataIsOkay = true;
             var data = response.data.responseList;
             data.forEach(responseString => {
@@ -150,7 +150,7 @@ export const swipeAndReload = (likedList, recommendationList) => {
                 }
             });
             if (dataIsOkay) {
-                TinderAPIService.refreshData().then(response => {
+                TinderAPIService.refreshData(xAuthToken).then(response => {
                     if (response.status === 200) {
                         dispatch({
                             type: ActionConstants.SWIPE_AND_RELOAD,
@@ -171,7 +171,6 @@ export const swipeAndReload = (likedList, recommendationList) => {
 export const getAuthToken = (requestBody) => {
     return dispatch => {
         TinderAPIService.getAuthToken(requestBody).then(response => {
-            console.log("MY RESPONSE: ",response);
             if(response.data.meta.status === 200)
             {
                 var apiToken = response.data.data.api_token;

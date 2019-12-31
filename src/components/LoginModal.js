@@ -19,7 +19,7 @@ class LoginModal extends Component {
 
     render() {
 
-        return (<Modal show={true}>
+        return (<Modal show={this.props.xAuthToken === null}>
             <Modal.Header closeButton>
                 <Modal.Title>Login</Modal.Title>
             </Modal.Header>
@@ -68,7 +68,9 @@ class LoginModal extends Component {
 }
 
 function mapStateToProps(state) {
-    return {};
+    return {
+        xAuthToken: state.MetaDataReducer.xAuthToken
+    };
 }
 
 function mapDispatchToProps(dispatch) {

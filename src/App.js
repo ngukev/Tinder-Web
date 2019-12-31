@@ -33,12 +33,6 @@ class App extends Component {
     this.setState({ sidePanelHeight: height })
   }
 
-  componentDidMount() {
-    this.props.TinderActions.fetchRecommendations();
-    this.props.TinderActions.fetchTeasers();
-    this.props.TinderActions.fetchProfile();
-  }
-
   componentDidUpdate(prevProps, prevState) {
     if (document.getElementsByClassName("Gallery") != null) {
       var height = document.getElementsByClassName("Gallery")[0].offsetHeight < 1025 ? 1025 : document.getElementsByClassName("Gallery")[0].offsetHeight;
@@ -47,6 +41,14 @@ class App extends Component {
         this.setState({ sidePanelHeight: height })
       }
     }
+
+    if(this.props.xAuthToken !== prevProps.xAuthToken)
+    {
+      this.props.TinderActions.fetchRecommendations(this.props.xAuthToken);
+      this.props.TinderActions.fetchTeasers(this.props.xAuthToken);
+      this.props.TinderActions.fetchProfile(this.props.xAuthToken);
+    }
+    
   }
   renderNavBar() {
     return (
