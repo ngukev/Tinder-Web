@@ -13,3 +13,5 @@ Steps to run the application:
   - Now the application should pop up in an internet browser on this endpoint: http://localhost:3000/
   - Login and go start mass swiping!
   
+  ![Screenshot](https://i.imgur.com/mZPkIl9.png)
+  
