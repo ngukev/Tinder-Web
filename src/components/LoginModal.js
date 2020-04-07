@@ -49,7 +49,7 @@ class LoginModal extends Component {
                 </Form>
             </Modal.Body>
             <Modal.Footer>
-                <Button variant="primary" disabled={this.state.phoneNumber === null} onClick = {e => {
+                <Button variant="primary" disabled={this.state.verificationCode === null} onClick = {e => {
                     if(this.state.phoneNumber !== null && this.state.verificationCode !== null)
                     {
                         var requestBody = {
