@@ -37,13 +37,8 @@ class LoginModal extends Component {
                     </Form.Group>
                     <Form.Group>
                         <Form.Label>Verification Code</Form.Label>
-                        <Form.Control onBlur={e => {
-                            this.setState({ verificationCode: e.target.value })
-                        }}
-                            disabled={this.state.phoneNumber === null} />
-                        <Form.Text className="text-muted">
-                            Check Your Phone
-                        </Form.Text>
+                        <Form.Control onChange ={e => { this.setState({verificationCode : e.target.value})}}/>
+                        {this.state.phoneNumber !== null ? <Form.Text className="text-muted"> Check Your Phone</Form.Text> : null}
                     </Form.Group>
                 </Form>
             </Modal.Body>
