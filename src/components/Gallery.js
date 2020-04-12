@@ -1,10 +1,10 @@
-import React, {Component} from 'react';
+import React, { Component } from 'react';
 import { CardDeck } from 'react-bootstrap';
 import { connect } from 'react-redux';
-import '../css/app.css';
-import TinderCard from './TinderCard';
-import * as UserHelper from '../helpers/UserHelper';
 import * as TinderConstants from '../constants/TinderConstants';
+import '../css/app.css';
+import * as UserHelper from '../helpers/UserHelper';
+import TinderCard from './TinderCard';
 
 
 

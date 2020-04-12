@@ -1,9 +1,6 @@
-import { faArrowCircleRight, faRedo } from '@fortawesome/free-solid-svg-icons';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import React, { Component } from 'react';
-import { Button, Table, Card } from 'react-bootstrap';
-import SettingsPanel from './SettingsPanel';
+import { Button, Table } from 'react-bootstrap';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import * as TinderActions from '../actions/TinderActions';
@@ -18,8 +15,10 @@ class SidePanel extends Component {
         this.showSelectedCards = this.showSelectedCards.bind(this);
     }
     showSelectedCards() {
-        return (
-            <Card border="dark" style={{ width: '23rem' }}>
+
+        if(this.props.likedList.length > 0)
+        {
+            return (
                 <Table variant="light" striped bordered hover>
                     <thead>
                         <tr >
@@ -35,8 +34,9 @@ class SidePanel extends Component {
                                 </tr>)
                         })}
                     </tbody>
-                </Table>
-            </Card>)
+                </Table>)
+        }
+        return null;
     }
     swipeOrReload() {
         if (this.props.recommendationList.length <= TinderConstants.LIMIT) {
@@ -47,44 +47,17 @@ class SidePanel extends Component {
         }
     }
     render() {
-        var label = this.props.defaultExpandBio === false ? "Expand All Bios" : "Minimize All Bios";
-        var labelCSS = {
-            fontSize: "19.4px",
-            color: "white",
-            fontWeight: "bold"
-
-        };
-        var playLabel = this.props.recommendationList.length > TinderConstants.LIMIT ? "Swipe and Next" : "Swipe and Reload";
-        var icon = this.props.recommendationList.length > TinderConstants.LIMIT ? faArrowCircleRight : faRedo;
-
-        var totalPages = Math.floor(this.props.originalRecommendationList.length / TinderConstants.LIMIT);
-        if (this.props.originalRecommendationList.length % TinderConstants.LIMIT !== 0) {
-            totalPages += 1;
-        }
-
-        var currentPage = 1;
-        for (var i = this.props.recommendationList.length; i < this.props.originalRecommendationList.length; i += TinderConstants.LIMIT) {
-            currentPage++;
-        }
-
         return (
             <>
                 <Table variant="dark">
-                    <tbody>
-                        <tr>
-                            <td></td>
-                            <td><Button variant="light" onClick={e => { this.props.expandAllBio(); }}>{label}</Button></td>
-                        </tr>
-                        <tr>
-                            <td style={labelCSS}>{playLabel + " " + currentPage + "/" + totalPages}</td>
-                            <td><FontAwesomeIcon icon={icon} style={{ fontSize: "40px" }} color="white" onClick={e => this.swipeOrReload()} /></td>
-                        </tr>
-                    </tbody>
+                    <thead>
+                    <tr>
+                        <td><Button variant="primary" onClick={e => this.swipeOrReload()} size="lg" block>Swipe</Button></td>
+                    </tr>
+                    </thead>
                 </Table>
                 <br></br>
                 {this.showSelectedCards()}
-                <br></br>
-                <SettingsPanel />
             </>);
     }
 }
